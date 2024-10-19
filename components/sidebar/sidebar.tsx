@@ -9,7 +9,7 @@ import { routes } from "@/config/routes"; // Import the routes array
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
-export const SidebarWrapper = ({ isUploaded }: any) => {
+export const SidebarWrapper = () => {
   const pathname = usePathname();
   const { collapsed, setCollapsed } = useSidebarContext();
   const session = useSession();

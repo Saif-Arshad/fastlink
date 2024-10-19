@@ -34,7 +34,7 @@ const ProjectCard = () => {
             {cardData.map((card, index) => (
                 <div
                     key={index}
-                    className="bg-white p-2 rounded-xl border-2 border-slate-50 flex items-center justify-between"
+                    className="bg-white p-2 rounded-xl border-2 shadow border-slate-50 flex items-center justify-between"
                 >
                     <div className="flex items-center">
                         <img
@@ -44,7 +44,7 @@ const ProjectCard = () => {
                         />
                     </div>
 
-                    <div className="h-[50px] w-[3px] bg-green-500"></div>
+                    <div className="h-[50px] w-[2px] bg-green-500"></div>
                     <div className="flex-1 pl-4">
                         <div className="text-sm font-semibold text-gray-600 mb-2">
                             {card.title}
