@@ -6,7 +6,8 @@ export default async function middleware(
   event: NextFetchEvent
 ) {
   const session = await getToken({ req: req as any });
-  const isAuthenticated = !!session;
+  const isAuthenticated = true;
+  // const isAuthenticated = !!session;
 
   const url = req.nextUrl.clone();
 
@@ -27,5 +28,5 @@ export default async function middleware(
 }
 
 export const config = {
-  // matcher: ["/dashboard", "/dashboard/:path*", "/", "/login"],
+  matcher: ["/dashboard", "/dashboard/:path*", "/", "/login"],
 };
