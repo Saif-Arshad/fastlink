@@ -28,9 +28,10 @@ const data = [
 
 const TaskSummaryCard = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:p-10 py-6 mb-6 border-t-2 border-b-2 border-gray-100 gap-4 bg-white ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:py-6 mb-6 border-t-2 border-b-2 border-gray-100 gap-4 bg-white ">
             {data.map((item, index) => (
-                <div key={index} className={`w-full text-center flex gap-x-8 ${item.border && "md:border-r-2 border-gray-100"}`}>
+                <div key={index} className={`w-full text-center flex gap-x-8 shadow p-2.5 hover:scale-105 transition-all cursor-pointer  rounded-lg`}>
+                    {/* <div key={index} className={`w-full text-center flex gap-x-8 ${item.border && "md:border-r-2 border-gray-100"}`}> */}
                     <div className="flex flex-col">
 
                         <div className="text-sm text-gray-500 font-semibold mb-2">
@@ -43,7 +44,7 @@ const TaskSummaryCard = () => {
                         <div className={`text-sm text-gray-400`}>{item.label}</div>
                     </div>
                     <div className="mt-4 h-16 flex justify-center">
-                        <img src={item.img} alt="Bar chart" className="w-32 h-full object-contain" />
+                        <img src={item.img} alt="Bar chart" className="w-32 h-full object-fill" />
                     </div>
                 </div>
             ))}

@@ -117,7 +117,7 @@ const TaskChart = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-lg w-full lg:w-[70%]">
+        <div className="p-6 bg-white rounded-xl w-full lg:w-[70%] shadow ">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-600">Task Created Vs Task Completed</h2>
                 <div className="flex items-center gap-x-3">

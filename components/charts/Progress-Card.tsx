@@ -34,22 +34,22 @@ const ProjectCard = () => {
             {cardData.map((card, index) => (
                 <div
                     key={index}
-                    className="bg-white p-2 rounded-xl border-2 shadow border-slate-50 flex items-center justify-between"
+                    className="bg-white p-2 rounded-xl shadow hover:scale-105 transition-all cursor-pointer  flex items-center justify-between"
                 >
                     <div className="flex items-center">
                         <img
                             src={card.avatar}
                             alt="Avatars"
-                            className="w-20 h-12 rounded-lg contain mr-6"
+                            className="w-20 h-9 rounded-lg contain mr-6"
                         />
                     </div>
 
-                    <div className="h-[50px] w-[2px] bg-green-500"></div>
+                    <div className="h-[45px] w-[2px] bg-green-500"></div>
                     <div className="flex-1 pl-4">
-                        <div className="text-sm font-semibold text-gray-600 mb-2">
+                        <div className="text-sm font-medium text-gray-600 mb-2">
                             {card.title}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-gray-500 flex items-center gap-x-6">
                             <span>{card.progress}</span>
                             <span className="ml-2 text-xs text-gray-400">due {card.due}</span>
                         </div>
