@@ -30,11 +30,11 @@ const cardData = [
 
 const ProjectCard = () => {
     return (
-        <div className="space-y-4 w-full md:w-[30%]">
+        <div className="space-y-4 w-full lg:w-[30%]">
             {cardData.map((card, index) => (
                 <div
                     key={index}
-                    className="bg-white p-2 rounded-lg border-2 border-slate-50 flex items-center justify-between"
+                    className="bg-white p-2 rounded-xl border-2 border-slate-50 flex items-center justify-between"
                 >
                     <div className="flex items-center">
                         <img

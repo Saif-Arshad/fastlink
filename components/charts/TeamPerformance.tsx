@@ -42,7 +42,7 @@ const PerformanceCard = () => {
     };
 
     return (
-        <div className="bg-white p-6 rounded-xl border-2 border-slate-50 w-80 md:w-[30%] text-center">
+        <div className="bg-white p-6 rounded-xl border-2 border-slate-50 w-full lg:w-[30%] text-center">
             <div className="text-lg font-semibold mb-6 text-gray-600">
                 Your Team Performance This Week
             </div>

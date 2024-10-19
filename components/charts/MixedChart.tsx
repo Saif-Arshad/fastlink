@@ -91,7 +91,7 @@ const MixedChart = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-lg w-full md:w-[70%] min-h-[400px]">
+        <div className="p-6 bg-white rounded-lg w-full lg:w-[70%] min-h-[400px]">
             <h2 className="text-lg font-semibold mb-4 text-gray-600">Monthly Earning Performance</h2>
             <div className="h-64">
                 {/* @ts-ignore */}
