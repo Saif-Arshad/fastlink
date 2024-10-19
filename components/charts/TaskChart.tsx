@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
     Chart as ChartJS,
@@ -8,15 +8,35 @@ import {
     LinearScale,
     Tooltip,
     Legend,
+    Plugin,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { defaults } from "chart.js/auto";
 
-
 defaults.maintainAspectRatio = false;
-defaults.responsive = true
+defaults.responsive = true;
+
 // Register Chart.js components
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
+
+// Custom plugin for adding black shadow to line elements
+let _stroke: null | (() => void) = null;
+const simplePlugin: Plugin<"line"> = {
+    id: "blackShadow",
+    beforeDatasetsDraw: function (chart) {
+        if (!_stroke) _stroke = chart.ctx.stroke;
+        chart.ctx.stroke = function () {
+            if (!chart.ctx) return;
+            chart.ctx.save();
+            chart.ctx.shadowColor = "rgba(0, 0, 0, 0.3)"; // Black shadow with 30% opacity
+            chart.ctx.shadowBlur = 10;
+            chart.ctx.shadowOffsetX = 0;
+            chart.ctx.shadowOffsetY = 5;
+            _stroke!.apply(this, arguments as any);
+            chart.ctx.restore();
+        };
+    },
+};
 
 const TaskChart = () => {
     // State to manage the current view (Day, Week, Month)
@@ -121,9 +141,7 @@ const TaskChart = () => {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-600">Task Created Vs Task Completed</h2>
                 <div className="flex items-center gap-x-3">
-                    <span className="font-semibold text-base">
-                        Sort Bys
-                    </span>
+                    <span className="font-semibold text-base">Sort By</span>
                     <div className="relative">
                         <select
                             className="border p-2 rounded-lg"
@@ -139,8 +157,9 @@ const TaskChart = () => {
             </div>
             {/* Line chart */}
             <div className="h-64">
+                {/* Registering the custom plugin for the shadow effect */}
                 {/* @ts-ignore */}
-                <Line data={dataByView[view]} options={options} />
+                <Line data={dataByView[view]} options={options} plugins={[simplePlugin]} />
             </div>
         </div>
     );

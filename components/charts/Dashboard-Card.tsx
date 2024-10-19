@@ -1,3 +1,4 @@
+import { MoveUpRight } from "lucide-react";
 import React from "react";
 
 const data = [
@@ -39,7 +40,13 @@ const TaskSummaryCard = () => {
                         </div>
                         <div className="flex justify-center items-center space-x-2 mb-2">
                             <span className={`text-xl font-semibold  ${index == 0 ? "text-orange-600" : index == 1 ? "text-purple-600" : "text-green-600"}`}>{item.current}</span>
-                            <span className={`text-xs p-1 rounded-lg ${index == 0 ? "bg-orange-300" : index == 1 ? "bg-purple-300" : "bg-green-300"}`}>{item.total}</span>
+                            <span className={`text-xs p-1 gap-x-0.5 items-start flex rounded-lg ${index == 0 ? "bg-orange-300" : index == 1 ? "bg-purple-300" : "bg-green-300"}`}>
+                                <span className="mt-1">
+                                    {item.total}
+                                </span>
+                                <MoveUpRight className="w-4 h-4 text-[8px]" /> {/* Adjusted icon size */}
+                            </span>
+
                         </div>
                         <div className={`text-sm text-gray-400`}>{item.label}</div>
                     </div>

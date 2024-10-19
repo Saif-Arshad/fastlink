@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import {
@@ -9,29 +9,42 @@ import {
     LinearScale,
     Tooltip,
     Legend,
+    Plugin,
 } from "chart.js";
-import { Bar, Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { defaults } from "chart.js/auto";
 
 
 defaults.maintainAspectRatio = false;
-defaults.responsive = true
-// Register the components needed for the chart
-ChartJS.register(
-    BarElement,
-    LineElement,
-    CategoryScale,
-    LinearScale,
-    Tooltip,
-    Legend
-);
+defaults.responsive = true;
 
+// Register the components needed for the chart
+ChartJS.register(BarElement, LineElement, CategoryScale, LinearScale, Tooltip, Legend);
+
+// Define the simplePlugin with shadow effect for lines
+let _stroke: null | (() => void) = null;
+const simplePlugin: Plugin<"line"> = {
+    id: "piaf",
+    beforeDatasetsDraw: function (chart) {
+        if (!_stroke) _stroke = chart.ctx.stroke;
+        chart.ctx.stroke = function () {
+            if (!chart.ctx) return;
+            chart.ctx.save();
+            chart.ctx.shadowColor = "rgba(0, 0, 0, 0.15)";
+            chart.ctx.shadowBlur = 10;
+            chart.ctx.shadowOffsetX = 0;
+            chart.ctx.shadowOffsetY = 10;
+            _stroke!.apply(this, arguments as any);
+            chart.ctx.restore();
+        };
+    },
+};
+
+// Your chart component
 const MixedChart = () => {
     // Dummy data for the bar (earnings) and line (performance)
     const data = {
-        labels: [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        ],
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
             {
                 type: "bar", // Bar chart for earnings
@@ -91,11 +104,12 @@ const MixedChart = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-xl w-full lg:w-[70%]  shadow">
+        <div className="p-6 bg-white rounded-xl w-full lg:w-[70%] shadow">
             <h2 className="text-lg font-semibold mb-4 text-gray-600">Monthly Earning Performance</h2>
             <div className="h-64">
+                {/* Register the plugin here */}
                 {/* @ts-ignore */}
-                <Line data={data} options={options} />
+                <Line data={data} options={options} plugins={[simplePlugin]} />
             </div>
         </div>
     );
