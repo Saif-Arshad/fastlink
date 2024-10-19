@@ -19,22 +19,37 @@ defaults.responsive = true;
 // Register Chart.js components
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-// Custom plugin for adding black shadow to line elements
-let _stroke: null | (() => void) = null;
-const simplePlugin: Plugin<"line"> = {
-    id: "blackShadow",
-    beforeDatasetsDraw: function (chart) {
-        if (!_stroke) _stroke = chart.ctx.stroke;
-        chart.ctx.stroke = function () {
-            if (!chart.ctx) return;
-            chart.ctx.save();
-            chart.ctx.shadowColor = "rgba(0, 0, 0, 0.3)"; // Black shadow with 30% opacity
-            chart.ctx.shadowBlur = 10;
-            chart.ctx.shadowOffsetX = 0;
-            chart.ctx.shadowOffsetY = 5;
-            _stroke!.apply(this, arguments as any);
-            chart.ctx.restore();
-        };
+// Custom plugin for adding shadow effect to lines with individual shadow colors
+const shadowPlugin: Plugin<"line"> = {
+    id: "coloredShadows",
+    beforeDatasetDraw: function (chart, args) {
+        const { ctx } = chart;
+        const datasetIndex = args.index;
+        const dataset = chart.data.datasets[datasetIndex];
+
+        // Apply shadow color based on the dataset's line color
+        const lineColor = dataset.borderColor as string;
+
+        if (lineColor === "rgba(255, 99, 132, 1)") {
+            // Red line shadow
+            ctx.shadowColor = "rgba(255, 99, 132, 0.5)"; // Red shadow
+        } else if (lineColor === "rgba(54, 162, 235, 1)") {
+            // Blue line shadow
+            ctx.shadowColor = "rgba(54, 162, 235, 0.5)"; // Blue shadow
+        }
+
+        // Apply shadow properties
+        ctx.shadowBlur = 30;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 20;
+
+        // Save the current context state for each line
+        ctx.save();
+    },
+    afterDatasetDraw: function (chart) {
+        const { ctx } = chart;
+        // Restore context after each line is drawn to reset the shadow
+        ctx.restore();
     },
 };
 
@@ -50,14 +65,14 @@ const TaskChart = () => {
                 {
                     label: "Tasks Created",
                     data: [3, 4, 2, 5, 7, 4, 6],
-                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderColor: "rgba(255, 99, 132, 1)", // Red line
                     backgroundColor: "rgba(255, 99, 132, 0.2)",
                     tension: 0.4,
                 },
                 {
                     label: "Tasks Completed",
                     data: [2, 3, 3, 4, 6, 3, 5],
-                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderColor: "rgba(54, 162, 235, 1)", // Blue line
                     backgroundColor: "rgba(54, 162, 235, 0.2)",
                     tension: 0.4,
                 },
@@ -69,14 +84,14 @@ const TaskChart = () => {
                 {
                     label: "Tasks Created",
                     data: [14, 16, 12, 16, 18, 10, 15],
-                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderColor: "rgba(255, 99, 132, 1)", // Red line
                     backgroundColor: "rgba(255, 99, 132, 0.2)",
                     tension: 0.4,
                 },
                 {
                     label: "Tasks Completed",
                     data: [10, 12, 11, 14, 13, 8, 12],
-                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderColor: "rgba(54, 162, 235, 1)", // Blue line
                     backgroundColor: "rgba(54, 162, 235, 0.2)",
                     tension: 0.4,
                 },
@@ -88,14 +103,14 @@ const TaskChart = () => {
                 {
                     label: "Tasks Created",
                     data: [50, 55, 45, 60, 58, 62, 57],
-                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderColor: "rgba(255, 99, 132, 1)", // Red line
                     backgroundColor: "rgba(255, 99, 132, 0.2)",
                     tension: 0.4,
                 },
                 {
                     label: "Tasks Completed",
                     data: [40, 48, 42, 50, 53, 55, 52],
-                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderColor: "rgba(54, 162, 235, 1)", // Blue line
                     backgroundColor: "rgba(54, 162, 235, 0.2)",
                     tension: 0.4,
                 },
@@ -157,9 +172,9 @@ const TaskChart = () => {
             </div>
             {/* Line chart */}
             <div className="h-64">
-                {/* Registering the custom plugin for the shadow effect */}
+                {/* Registering the custom plugin for colored shadows */}
                 {/* @ts-ignore */}
-                <Line data={dataByView[view]} options={options} plugins={[simplePlugin]} />
+                <Line data={dataByView[view]} options={options} plugins={[shadowPlugin]} />
             </div>
         </div>
     );
