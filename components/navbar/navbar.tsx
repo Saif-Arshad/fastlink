@@ -56,6 +56,7 @@ export const NavbarWrapper = ({ children }: Props) => {
         </ul>
 
         <NavbarContent
+
           justify="end"
           className="w-fit ml-auto data-[justify=end]:flex-grow-0"
         >
