@@ -6,8 +6,7 @@ export default async function middleware(
   event: NextFetchEvent
 ) {
   const session = await getToken({ req: req as any });
-  const isAuthenticated = true;
-  // const isAuthenticated = !!session;
+  const isAuthenticated = !!session;
 
   const url = req.nextUrl.clone();
 

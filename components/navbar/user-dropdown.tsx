@@ -26,8 +26,8 @@ export const UserDropdown = () => {
   };
 
   const handleLogout = useCallback(async () => {
-    // await signOut();
-    // router.replace("/login");
+    await signOut();
+    router.replace("/login");
   }, [router]);
 
   return (
