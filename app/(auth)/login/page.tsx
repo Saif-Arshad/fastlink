@@ -1,7 +1,7 @@
 import React from "react";
-import Login from "@/components/auth/login";
+import Auth from "@/components/auth/login";
 const login = ({ searchParams }: { searchParams: { error?: string } }) => {
-  return <Login searchParams={searchParams} />;
+  return <Auth searchParams={searchParams} />;
 };
 
 export default login;
