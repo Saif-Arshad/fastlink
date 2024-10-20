@@ -54,7 +54,7 @@ function Register() {
             <div className="grid grid-cols-1 lg:grid-cols-2">
 
 
-                <div className="flex items-center justify-center px-5 py-4 bg-white sm:px-6 lg:px-8 ">
+                <div className="flex items-center justify-center px-5 py-4 xl:py-9 xl:pt-12 bg-white sm:px-6 lg:px-8 ">
                     <div className="w-full xl:w-10/12 2xl:max-w-md xl:mx-auto">
                         <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
                             Register your Account
@@ -66,7 +66,7 @@ function Register() {
                             onSubmit={handleRegister}
                         >
                             {({ isSubmitting }) => (
-                                <Form className="space-y-6 mt-8">
+                                <Form className="space-y-4 mt-20">
                                     <div className='flex gap-4 w-full flex-col lg:flex-row'>
 
                                         <div className="flex flex-col w-full lg:w-6/12">
@@ -156,7 +156,7 @@ function Register() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
                     <div className="relative">
                         <div className="w-full max-w-xl xl:w-full xl:mx-auto xl:pr-24 xl:max-w-xl">
-                            <h3 className="text-4xl font-bold text-white">
+                            <h3 className="text-4xl font-bold text-white leading-10">
                                 Join Us Today! <br className="hidden xl:block" />
                                 Let&apos;s get you started on your journey.
                             </h3>
