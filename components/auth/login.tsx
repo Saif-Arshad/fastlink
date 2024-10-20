@@ -43,7 +43,7 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
     <section className="bg-white h-screen max-h-screen lg:overflow-y-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Image Section */}
-        <div className="relative h-screen flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
+        <div className="relative lg:h-screen flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
           <div className="absolute inset-0">
             <img className="object-cover w-full h-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/4/girl-working-on-laptop.jpg" alt="" />
           </div>
