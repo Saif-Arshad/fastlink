@@ -7,13 +7,15 @@ export const LoginSchema = object().shape({
   password: string().required("Password is required"),
 });
 
+
 export const RegisterSchema = object().shape({
-  full_name: string().required("Name is required"),
+  first_name: string().required("First name is required"),
+  middle_name: string(),
+  last_name: string(),
   email: string()
     .email("This field must be an email")
     .required("Email is required"),
   password: string().required("Password is required"),
-  // confirmPassword: string()
-  //   .required("Confirm password is required")
-  //   .oneOf([ref("password")], "Passwords must match"),
+  signature: string().required("Signature is required"),
 });
+

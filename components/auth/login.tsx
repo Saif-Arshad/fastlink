@@ -110,7 +110,7 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex justify-center font-semibold items-center py-4 text-white bg-blue-600 rounded-xl hover:opacity-90"
+                    className="w-full flex justify-center gap-x-2 font-semibold items-center py-4 text-white bg-blue-600 rounded-xl hover:opacity-90"
                   >
                     {isSubmitting ?
                       <>
