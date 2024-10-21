@@ -9,14 +9,13 @@ const accounts = async ({
 }: {
   searchParams: { page?: number; limit?: number; query?: string };
 }) => {
-  redirect("/dashboard");
-  // const { error, data, meta } = await getAllUsers({
-  //   page: searchParams.page,
-  //   limit: searchParams.limit,
-  //   query: searchParams.query,
-  // });
-  // if (error || !meta) return <Error error={error || "No Data found"} />;
-  // return <Accounts data={data?.users || []} meta={meta} />;
+  const { error, data, meta } = await getAllUsers({
+    page: searchParams.page,
+    limit: searchParams.limit,
+    query: searchParams.query,
+  });
+  if (error || !meta) return <Error error={error || "No Data found"} />;
+  return <Accounts data={data?.users || []} meta={meta} />;
 };
 
 export default accounts;

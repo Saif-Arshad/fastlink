@@ -83,6 +83,20 @@ export async function createUser(data: IUser): Promise<Result<IUser>> {
     return { error: errorMessage };
   }
 }
+export async function inviteUser(data: any) {
+  try {
+    const response = await axiosInstance.post("/api/users/invite", {
+      email: data
+    });
+
+    return { data: response.data.body };
+  } catch (error: any) {
+    // Extract detailed error message if available
+    const errorMessage = error.response?.data?.error || "Invite Member failed";
+    // console.error("Create user failed:", errorMessage);
+    return { error: errorMessage };
+  }
+}
 
 export async function getAllUsers({
   query,

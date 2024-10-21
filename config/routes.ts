@@ -33,7 +33,7 @@ export const routes = [
   {
     title: "Team Members",
     icon: Users,
-    href: "/dashboard/2",
+    href: "/dashboard/accounts",
     admin: false,
   },
   {

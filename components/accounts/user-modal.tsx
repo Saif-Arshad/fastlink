@@ -13,12 +13,13 @@ import {
 } from "@nextui-org/react";
 import { IUser } from "@/helpers/types";
 import { useRouter } from "next/navigation";
+import { Plus, Send } from "lucide-react";
 
 type UserModalProps = {
   mode?: string;
   data?: IUser;
   button?: React.ReactNode;
-  onConfirm?: (mode: string, data: IUser) => Promise<void>; // Updated to async
+  onConfirm?: (mode: string, data: any) => Promise<void>; // Updated to async
 };
 
 const UserModal = ({
@@ -28,21 +29,24 @@ const UserModal = ({
   button,
 }: UserModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [InviteEmail, setInviteEmail] = useState("")
   const router = useRouter()
   // State to manage the user data
   const [editedUser, setEditedUser] = useState<IUser & { encryptedPassword?: string }>({
     email: "",
     _id: "",
     full_name: "",
-    type: "user",
+    type: "employee",
     password: "",
+    signature: "",
     ...data,
   });
 
   // Customize modal title and button text based on the mode
-  const title = `${mode} User`;
+  const title = `${mode} Member`;
   const isViewMode = mode === "View";
   const isDeleteMode = mode === "Delete";
+  const isInviteMode = mode === "Invite";
   const buttonText = isDeleteMode
     ? "Confirm Delete"
     : isViewMode
@@ -72,14 +76,22 @@ const UserModal = ({
   // Function to handle modal confirm action
   const handleConfirm = async () => {
     if (onConfirm) {
-      await onConfirm(mode, editedUser);
-      setEditedUser({
-        email: "",
-        _id: "",
-        full_name: "",
-        type: "user",
-        password: "",
-      });
+
+      if (isInviteMode) {
+        await onConfirm(mode, InviteEmail)
+        setInviteEmail("")
+      } else {
+
+        await onConfirm(mode, editedUser);
+        setEditedUser({
+          email: "",
+          _id: "",
+          full_name: "",
+          type: "employee",
+          password: "",
+          signature: "",
+        });
+      }
       router.refresh()
     }
     onClose();
@@ -89,8 +101,11 @@ const UserModal = ({
       {button ? (
         <button onClick={onOpen}>{button}</button>
       ) : (
-        <Button onPress={onOpen} color="primary">
-          {mode} User
+        <Button onPress={onOpen} color={`${mode == "Invite" ? "secondary" : "primary"}`} className="flex items-center gap-x-1">
+          {
+            mode == "Add" ? <Plus className="h-5 w-5" /> : <Send className="h-5 w-5" />
+          }
+          {mode} Member
         </Button>
       )}
       <Modal isOpen={isOpen} onClose={onClose} placement="top-center">
@@ -103,48 +118,70 @@ const UserModal = ({
                 <span className="underline">{editedUser.full_name}</span> with
                 email <span className="underline">{editedUser.email}</span>?
               </p>
-            ) : (
-              <>
-                <Input
-                  name="email"
-                  label="Email"
-                  value={editedUser.email}
-                  onChange={handleChange}
-                  variant="bordered"
-                  disabled={isViewMode}
-                />
-                <Input
-                  name="full_name"
-                  label="Full Name"
-                  value={editedUser.full_name}
-                  onChange={handleChange}
-                  variant="bordered"
-                  disabled={isViewMode}
-                />
-                <Select
-                  name="type"
-                  label="Type"
-                  selectedKeys={[editedUser.type]}
-                  onChange={(e) => handleChange(e)}
-                  variant="bordered"
-                  disabled={isViewMode}
-                >
-                  <SelectItem key="admin">Admin</SelectItem>
-                  <SelectItem key="user">User</SelectItem>
-                </Select>
-
-                {!isViewMode && (
+            )
+              :
+              isInviteMode ? (
+                <>
                   <Input
-                    name="encryptedPassword"
-                    label="Password"
-                    type="password"
-                    value={editedUser.encryptedPassword}
-                    onChange={handleChange}
+                    name="email"
+                    label="Email"
+                    value={InviteEmail}
+                    onChange={(e: any) => setInviteEmail(e.target.value)}
                     variant="bordered"
                   />
+                </>
+              )
+                :
+                (
+                  <>
+                    <Input
+                      name="email"
+                      label="Email"
+                      value={editedUser.email}
+                      onChange={handleChange}
+                      variant="bordered"
+                      disabled={isViewMode}
+                    />
+                    <Input
+                      name="full_name"
+                      label="Full Name"
+                      value={editedUser.full_name}
+                      onChange={handleChange}
+                      variant="bordered"
+                      disabled={isViewMode}
+                    />
+                    <Input
+                      name="signature"
+                      label="Signature"
+                      value={editedUser.signature}
+                      onChange={handleChange}
+                      variant="bordered"
+                      disabled={isViewMode}
+                    />
+                    <Select
+                      name="type"
+                      label="Type"
+                      selectedKeys={[editedUser.type]}
+                      onChange={(e) => handleChange(e)}
+                      variant="bordered"
+                      disabled={isViewMode}
+                    >
+                      <SelectItem key="admin">Admin</SelectItem>
+                      <SelectItem key="employee">Employee</SelectItem>
+                    </Select>
+
+                    {!isViewMode && (
+                      <Input
+                        name="encryptedPassword"
+                        label="Password"
+                        type="password"
+                        value={editedUser.encryptedPassword}
+                        onChange={handleChange}
+                        variant="bordered"
+                      />
+                    )}
+                  </>
                 )}
-              </>
-            )}
           </ModalBody>
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
