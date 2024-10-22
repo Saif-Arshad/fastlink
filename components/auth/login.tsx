@@ -50,7 +50,7 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
           <div className="relative">
             <div className="w-full max-w-xl xl:w-full xl:mx-auto xl:pr-24 xl:max-w-xl">
-              <h3 className="text-4xl font-bold text-white">
+              <h3 className="text-4xl font-bold bold-font  text-white">
                 Welcome Back! <br className="hidden xl:block" />
                 We&lsquo;re excited to have you here.
               </h3>
@@ -62,7 +62,7 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className=" text-white">{highlight}</span>
+                    <span className=" light-font text-white">{highlight}</span>
                   </li>
                 ))}
 
@@ -74,7 +74,7 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
 
         <div className="flex items-center justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
           <div className="w-full xl:w-10/12 2xl:max-w-md xl:mx-auto">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
+            <h2 className="text-3xl font-bold bold-font  leading-tight text-black sm:text-4xl">
               Login to your Account
             </h2>
 
@@ -88,29 +88,29 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
                 <Form className="mt-8 space-y-6">
 
                   <div className="flex flex-col">
-                    <label className="mb-1 font-medium text-gray-500">Email</label>
+                    <label className="mb-1 light-font font-medium text-gray-500">Email</label>
                     <Field
                       type="email"
                       name="email"
                       placeholder="Enter your email"
-                      className="w-full py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                      className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
                     />
                     <ErrorMessage name="email" component="div" className="text-red-600 text-sm mt-1" />
                   </div>
                   <div className="flex flex-col">
-                    <label className="mb-1 font-medium text-gray-500">Password</label>
+                    <label className="mb-1 light-font font-medium text-gray-500">Password</label>
                     <Field
                       type="password"
                       name="password"
                       placeholder="Enter your password"
-                      className="w-full py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                      className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
                     />
                     <ErrorMessage name="password" component="div" className="text-red-600 text-sm mt-1" />
                   </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex justify-center gap-x-2 font-semibold items-center py-4 text-white bg-blue-600 rounded-xl hover:opacity-90"
+                    className="w-full flex regular-font  justify-center gap-x-2 font-semibold items-center py-4 text-white bg-blue-600 rounded-xl hover:opacity-90"
                   >
                     {isSubmitting ?
                       <>

@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import axiosInstance from "@/config/axios";
 import { IUser, Result } from "@/helpers/types";
+import axios from "axios";
 
 export async function signOut(): Promise<Result<{ message: string }>> {
   try {
@@ -94,6 +95,19 @@ export async function inviteUser(data: any) {
     // Extract detailed error message if available
     const errorMessage = error.response?.data?.error || "Invite Member failed";
     // console.error("Create user failed:", errorMessage);
+    return { error: errorMessage };
+  }
+}
+export async function AuthUser(data: any) {
+  try {
+    const response = await axiosInstance.post("/api/users/authenticate", {
+      id: data
+    });
+
+    return { data: response.data.success };
+  } catch (error: any) {
+    console.log("🚀 ~ AuthUser ~ error:", error)
+    const errorMessage = error.response?.data?.error || "authentication Member failed";
     return { error: errorMessage };
   }
 }

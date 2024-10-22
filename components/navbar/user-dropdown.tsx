@@ -49,7 +49,7 @@ export const UserDropdown = () => {
       >
         <DropdownItem
           key="profile"
-          className="flex flex-col justify-start w-full items-start"
+          className="flex flex-col justify-start light-font w-full items-start"
         >
           <p>Signed in as</p>
           <p>

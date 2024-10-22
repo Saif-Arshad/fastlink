@@ -22,12 +22,15 @@
   src: url(../public/Font/Poppins-Light.ttf)
 }
 
-body,
-div,
-p {
-  font-family: "poppins-light";
-}
 
+label,
+p {
+  font-family: "poppins-light" !important;
+
+}
+.light-font{
+  font-family:"poppins-light" !important;
+}
 .regular-font {
 
   font-family: 'poppins-regular', sans-serif !important;

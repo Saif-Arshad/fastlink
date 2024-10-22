@@ -60,7 +60,7 @@ export const SidebarWrapper = () => {
                         <span className="h-3 w-3 text-sm rounded-full bg-transparent border border-[#5950A8]">
 
                         </span>
-                        <li className="text-sm">
+                        <li className="text-sm light-font">
                           {item}
                         </li>
                       </div>
@@ -78,7 +78,7 @@ export const SidebarWrapper = () => {
                   width={100}
                   className="h-10 w-10 rounded-md object-cover"
                 />
-                <span className="text-base  font-semibold ml-2 text-[#5950A8] group-hover:text-white">
+                <span className="text-base  font-semibold ml-2 text-[#5950A8] group-hover:text-white regular-font">
                   Saif Ur Rehman
                 </span>
               </div>

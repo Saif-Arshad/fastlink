@@ -54,7 +54,7 @@ export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta }) => {
     <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
       <div className="flex justify-between flex-wrap gap-4 items-center">
         <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-          <h3 className="text-xl font-semibold">Team Members</h3>
+          <h3 className="text-xl regular-fontss font-semibold">Team Members</h3>
         </div>
         <div className="flex flex-row gap-3.5 flex-wrap">
           <UserModal mode="Invite" onConfirm={handleInviteUser} />

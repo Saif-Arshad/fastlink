@@ -35,10 +35,10 @@ const TaskSummaryCard = () => {
                     {/* <div key={index} className={`w-full text-center flex gap-x-8 ${item.border && "md:border-r-2 border-gray-100"}`}> */}
                     <div className="flex flex-col">
 
-                        <div className="text-sm text-gray-500 font-semibold mb-2">
+                        <div className="text-sm text-gray-500 font-semibold regular-font mb-2">
                             {item.title}
                         </div>
-                        <div className="flex justify-center items-center space-x-2 mb-2">
+                        <div className="flex justify-center items-center space-x-2 mb-2 light-font">
                             <span className={`text-xl font-semibold  ${index == 0 ? "text-orange-600" : index == 1 ? "text-purple-600" : "text-green-600"}`}>{item.current}</span>
                             <span className={`text-xs p-1 gap-x-0.5 items-start flex rounded-lg ${index == 0 ? "bg-orange-300" : index == 1 ? "bg-purple-300" : "bg-green-300"}`}>
                                 <span className="mt-1">

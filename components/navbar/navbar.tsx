@@ -50,7 +50,7 @@ export const NavbarWrapper = ({ children }: Props) => {
 
           {
             navLinks.map((item: any, index: number) => (
-              <li className="hover:scale-x-110 transition-all" key={index}>{item.name}</li>
+              <li className="hover:scale-x-110 transition-all light-font" key={index}>{item.name}</li>
             ))
           }
         </ul>
