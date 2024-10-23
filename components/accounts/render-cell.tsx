@@ -10,14 +10,14 @@ import { deleteUser, editUser } from "@/actions/user.action";
 import { toast } from "sonner";
 
 interface Props {
-  item: IUser;
+  item: any;
   columnKey: string | React.Key;
 }
 
 export const RenderCell = ({ item, columnKey }: Props) => {
-  const cellValue = item[columnKey as keyof IUser];
+  const cellValue = item[columnKey as keyof any];
 
-  const handleEditUser = async (_: string, data: IUser) => {
+  const handleEditUser = async (_: string, data: any) => {
     toast.promise(
       editUser(item._id, data).then((result) => {
         if (result.error) {

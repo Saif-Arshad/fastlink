@@ -154,7 +154,7 @@ function Register({ data, id }: any) {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full flex regular-font  justify-center font-semibold items-center py-4 text-white bg-blue-600 rounded-xl hover:opacity-90"
+                                        className="w-full flex regular-font  justify-center font-semibold items-center py-4 text-white bg-[#05549F] rounded-xl hover:opacity-90"
                                     >
                                         {isSubmitting ? "Registering..." : "Sign Up"}
                                     </button>
@@ -178,7 +178,7 @@ function Register({ data, id }: any) {
                             <ul className="grid grid-cols-1 mt-10 sm:grid-cols-2 gap-x-8 gap-y-4">
                                 {projectHighlights.map((highlight, index) => (
                                     <li key={index} className="flex items-center space-x-3">
-                                        <div className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full">
+                                        <div className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 bg-[#05549F] rounded-full">
                                             <svg className="w-3.5 h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                             </svg>

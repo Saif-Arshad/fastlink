@@ -1,4 +1,3 @@
-import { getTablesNames } from "@/actions/product.action";
 import { Layout } from "@/components/layout/layout";
 import "@/styles/globals.css";
 

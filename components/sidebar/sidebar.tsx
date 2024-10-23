@@ -57,7 +57,7 @@ export const SidebarWrapper = () => {
                   {
                     sheduled.map((item: any, index: any) => (
                       <div className="flex gap-x-4 items-center" key={index}>
-                        <span className="h-3 w-3 text-sm rounded-full bg-transparent border border-[#5950A8]">
+                        <span className="h-3 w-3 text-sm rounded-full bg-transparent border border-[#0054a5]">
 
                         </span>
                         <li className="text-sm light-font">
@@ -70,7 +70,7 @@ export const SidebarWrapper = () => {
                 </SidebarMenu>
               </ul>
 
-              <div className="w-full rounded-md border p-1 group border-slate-300 cursor-pointer hover:bg-[#5950A8] my-5 flex items-center">
+              <div className="w-full rounded-md border p-1 group border-slate-300 cursor-pointer hover:bg-[#05549F] my-5 flex items-center">
                 <Image
                   src={"/user.jpeg"}
                   alt="user"
@@ -78,7 +78,7 @@ export const SidebarWrapper = () => {
                   width={100}
                   className="h-10 w-10 rounded-md object-cover"
                 />
-                <span className="text-base  font-semibold ml-2 text-[#5950A8] group-hover:text-white regular-font">
+                <span className="text-base  font-semibold ml-2 text-[#05549F] group-hover:text-white regular-font">
                   Abdulla Lootah
                 </span>
               </div>

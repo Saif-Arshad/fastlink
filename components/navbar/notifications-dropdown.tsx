@@ -47,7 +47,7 @@ export const NotificationsDropdown = () => {
             // color="primary"
             placement="top-right"
             shape="circle"
-            className="bg-[#5950A8] text-white text-xs p-[2px]"
+            className="bg-[#05549F] text-white text-xs p-[2px]"
           >
             <BellRing className="text-gray-600 cursor-pointer h-6 w-6" />
           </Badge>

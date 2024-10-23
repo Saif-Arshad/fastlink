@@ -37,18 +37,6 @@ export const routes = [
     admin: false,
   },
   {
-    title: "Monthly Earning",
-    icon: Banknote,
-    href: "/dashboard/3",
-    admin: false,
-  },
-  {
-    title: "Salaries",
-    icon: CreditCard,
-    href: "/dashboard/4",
-    admin: false,
-  },
-  {
     title: "Settings",
     icon: Settings,
     href: "/dashboard/5",

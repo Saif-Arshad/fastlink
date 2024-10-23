@@ -39,7 +39,7 @@ export const MessageDropDown = () => {
                         // color="primary"
                         size="md"
                         placement="top-right"
-                        className="bg-[#5950A8] text-white text-xs p-[2px]"
+                        className="bg-[#05549F] text-white text-xs p-[2px]"
 
                         shape="circle"
                     >

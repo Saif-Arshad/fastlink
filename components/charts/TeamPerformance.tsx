@@ -24,9 +24,9 @@ const PerformanceCard = () => {
         datasets: [
             {
                 data: [30, 40, 30],
-                backgroundColor: ["#FF6B6B", "#E5E5E5", "#5950A8"],
+                backgroundColor: ["#FF6B6B", "#E5E5E5", "#05549F"],
                 borderWidth: 0,
-                hoverBackgroundColor: ["#FF6B6B", "#E5E5E5", "#5950A8"],
+                hoverBackgroundColor: ["#FF6B6B", "#E5E5E5", "#05549F"],
             },
         ],
     };

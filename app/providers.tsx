@@ -23,7 +23,7 @@ export function Providers({ children, themeProps, session }: ProvidersProps) {
           {...themeProps}
         >
           <NextTopLoader
-            color="#7828c8"
+            color="#05549F"
             height={5}
             zIndex={1000000}
             showSpinner={false}
