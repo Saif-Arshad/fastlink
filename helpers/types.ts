@@ -14,7 +14,7 @@ export interface IUser {
   _id: string;
   email: string;
   full_name: string;
-  signature: string;
+  signature?: string;
   password: string;
   type: "admin" | "employee";
 }

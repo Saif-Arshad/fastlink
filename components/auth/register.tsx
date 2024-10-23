@@ -19,7 +19,7 @@ function Register({ data, id }: any) {
         last_name: "",
         email: "",
         password: "",
-        signature: ""
+        // signature: ""
     };
     useEffect(() => {
         if (data == true) {
@@ -33,7 +33,7 @@ function Register({ data, id }: any) {
             full_name: fullName,
             email: values.email,
             password: values.password,
-            signature: values.signature,
+            // signature: values.signature,
             invitedBy: id
         };
         try {
@@ -140,7 +140,7 @@ function Register({ data, id }: any) {
                                         <ErrorMessage name="password" component="div" className="text-red-600 text-sm mt-1" />
                                     </div>
 
-                                    <div className="flex flex-col">
+                                    {/* <div className="flex flex-col">
                                         <label className="mb-1 light-font font-medium text-gray-500">Signature</label>
                                         <Field
                                             type="text"
@@ -149,7 +149,7 @@ function Register({ data, id }: any) {
                                             className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
                                         />
                                         <ErrorMessage name="signature" component="div" className="text-red-600 text-sm mt-1" />
-                                    </div>
+                                    </div> */}
 
                                     <button
                                         type="submit"

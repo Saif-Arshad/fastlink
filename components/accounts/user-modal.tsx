@@ -150,14 +150,14 @@ const UserModal = ({
                       variant="bordered"
                       disabled={isViewMode}
                     />
-                    <Input
+                    {/* <Input
                       name="signature"
                       label="Signature"
                       value={editedUser.signature}
                       onChange={handleChange}
                       variant="bordered"
                       disabled={isViewMode}
-                    />
+                    /> */}
                     <Select
                       name="type"
                       label="Type"

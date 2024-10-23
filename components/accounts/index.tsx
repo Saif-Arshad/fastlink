@@ -15,7 +15,7 @@ export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta }) => {
     { name: "Full Name", uid: "full_name" },
     { name: "Joining Date", uid: "createdAt" },
     { name: "Type", uid: "type" },
-    { name: "Signature", uid: "signature" },
+    // { name: "Signature", uid: "signature" },
     { name: "ACTIONS", uid: "actions" },
   ];
 

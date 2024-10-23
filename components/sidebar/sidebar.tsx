@@ -79,7 +79,7 @@ export const SidebarWrapper = () => {
                   className="h-10 w-10 rounded-md object-cover"
                 />
                 <span className="text-base  font-semibold ml-2 text-[#5950A8] group-hover:text-white regular-font">
-                  Saif Ur Rehman
+                  Abdulla Lootah
                 </span>
               </div>
 

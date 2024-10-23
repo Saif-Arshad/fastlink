@@ -16,6 +16,6 @@ export const RegisterSchema = object().shape({
     .email("This field must be an email")
     .required("Email is required"),
   password: string().required("Password is required"),
-  signature: string().required("Signature is required"),
+  // signature: string().required("Signature is required"),
 });
 
