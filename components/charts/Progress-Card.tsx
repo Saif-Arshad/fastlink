@@ -34,7 +34,7 @@ const ProjectCard = () => {
             {cardData.map((card, index) => (
                 <div
                     key={index}
-                    className="bg-white p-2 rounded-xl shadow hover:scale-105 transition-all cursor-pointer  flex items-center justify-between"
+                    className="bg-white p-2 rounded-xl shadow hover:scale-105 transition-all cursor-pointer  flex items-center justify-between dark:bg-[#18181b]"
                 >
                     <div className="flex items-center">
                         <img
@@ -46,10 +46,10 @@ const ProjectCard = () => {
 
                     <div className="h-[45px] w-[2px] bg-green-500"></div>
                     <div className="flex-1 pl-4">
-                        <div className="text-sm font-medium text-gray-600 mb-2">
+                        <div className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">
                             {card.title}
                         </div>
-                        <div className="text-sm text-gray-500 flex items-center gap-x-6">
+                        <div className="text-sm text-gray-500 dark:text-gray-600 flex items-center gap-x-6">
                             <span>{card.progress}</span>
                             <span className="ml-2 text-xs text-gray-400">due {card.due}</span>
                         </div>

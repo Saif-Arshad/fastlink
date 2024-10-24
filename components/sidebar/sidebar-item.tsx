@@ -26,16 +26,16 @@ export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
       <div
         className={clsx(
           isActive
-            ? "bg-[#05549F] text-white "
+            ? "bg-[#05549F] text-white  "
             : "hover:bg-default-100",
           "flex gap-2 w-full min-h-[40px] h-full regular-font items-center px-3 rounded-xl cursor-pointer transition-all duration-150 active:scale-[0.98]"
         )}
         onClick={handleClick}
       >
-        <span className="text-[15px]">
+        <span className="text-[15px]  dark:text-gray-300">
           {icon}
         </span>
-        <span className={`${isActive ? "text-white " : "text-default-900"}`}>{title}</span>
+        <span className={`${isActive ? "text-white " : "text-default-900 dark:text-gray-300"}`}>{title}</span>
       </div>
     </NextLink >
   );

@@ -9,6 +9,7 @@ import { NotificationsDropdown } from "./notifications-dropdown";
 import { UserDropdown } from "./user-dropdown";
 import { useCheckAdmin } from "../hooks/useCheckingAdmin";
 import { MessageDropDown } from "./message-squre-more";
+import { DarkModeSwitch } from "./darkmodeswitch";
 
 
 interface Props {
@@ -46,11 +47,11 @@ export const NavbarWrapper = ({ children }: Props) => {
         <NavbarContent className="md:hidden">
           <BurguerButton />
         </NavbarContent>
-        <ul className="sm:flex gap-x-6 hidden hover:text-black  transition-all text-gray-600 cursor-pointer items-center gap-5">
+        <ul className="sm:flex gap-x-6 hidden hover:text-black  transition-all text-gray-600 dark:text-gray-300 cursor-pointer items-center gap-5">
 
           {
             navLinks.map((item: any, index: number) => (
-              <li className="hover:scale-x-110 transition-all light-font" key={index}>{item.name}</li>
+              <li className="hover:scale-x-110 transition-all light-font " key={index}>{item.name}</li>
             ))
           }
         </ul>
@@ -62,6 +63,7 @@ export const NavbarWrapper = ({ children }: Props) => {
         >
           <MessageDropDown />
           <NotificationsDropdown />
+          <DarkModeSwitch />
           <NavbarContent>
             <UserDropdown />
           </NavbarContent>

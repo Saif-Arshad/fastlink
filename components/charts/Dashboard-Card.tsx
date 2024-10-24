@@ -29,9 +29,9 @@ const data = [
 
 const TaskSummaryCard = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:py-6 mb-6 border-t-2 border-b-2 border-gray-100 gap-4 bg-white ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:py-6 mb-6 border-t-2 border-b-2 border-gray-100 gap-4 bg-white dark:bg-black dark:border-black ">
             {data.map((item, index) => (
-                <div key={index} className={`w-full text-center flex gap-x-8 shadow p-2.5 hover:scale-105 transition-all cursor-pointer  rounded-lg`}>
+                <div key={index} className={`w-full text-center flex gap-x-8 shadow p-2.5 hover:scale-105 transition-all cursor-pointer  rounded-lg dark:bg-[#18181b]`}>
                     {/* <div key={index} className={`w-full text-center flex gap-x-8 ${item.border && "md:border-r-2 border-gray-100"}`}> */}
                     <div className="flex flex-col">
 

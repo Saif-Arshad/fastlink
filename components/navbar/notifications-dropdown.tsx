@@ -49,7 +49,7 @@ export const NotificationsDropdown = () => {
             shape="circle"
             className="bg-[#05549F] text-white text-xs p-[2px]"
           >
-            <BellRing className="text-gray-600 cursor-pointer h-6 w-6" />
+            <BellRing className="text-gray-600 dark:text-gray-300  cursor-pointer h-6 w-6" />
           </Badge>
         </NavbarItem>
       </DropdownTrigger>

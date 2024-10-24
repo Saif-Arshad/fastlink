@@ -104,8 +104,8 @@ const MixedChart = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-xl w-full lg:w-[70%] shadow">
-            <h2 className="text-lg font-semibold mb-4 text-gray-600">Monthly Earning Performance</h2>
+        <div className="p-6 bg-white dark:bg-[#18181b] rounded-xl w-full lg:w-[70%] shadow">
+            <h2 className="text-lg font-semibold mb-4 text-gray-600 dark:text-gray-300">Monthly Earning Performance</h2>
             <div className="h-64">
                 {/* Register the plugin here */}
                 {/* @ts-ignore */}

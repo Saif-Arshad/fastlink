@@ -34,7 +34,7 @@ export const routes = [
     title: "Team Members",
     icon: Users,
     href: "/dashboard/accounts",
-    admin: false,
+    admin: true,
   },
   {
     title: "Settings",
@@ -42,11 +42,6 @@ export const routes = [
     href: "/dashboard/5",
     admin: false,
   },
-  // {
-  //   title: "User Management",
-  //   icon: User,
-  //   href: "/dashboard/accounts",
-  //   admin: false,
-  // },
+
 
 ];

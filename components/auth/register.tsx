@@ -63,14 +63,14 @@ function Register({ data, id }: any) {
         )
     }
     return (
-        <section className="bg-white ">
+        <section className="bg-white dark:bg-black">
             {/* <section className="bg-white h-screen max-h-screen lg:overflow-y-hidden"> */}
             <div className="grid grid-cols-1 lg:grid-cols-2">
 
 
-                <div className="flex items-center justify-center px-5 py-4 xl:py-9 xl:pt-12 bg-white sm:px-6 lg:px-8 ">
+                <div className="flex items-center justify-center px-5 py-4 xl:py-9 xl:pt-12 bg-white dark:bg-black sm:px-6 lg:px-8 ">
                     <div className="w-full xl:w-10/12 2xl:max-w-md xl:mx-auto">
-                        <h2 className="text-3xl bold-font font-bold leading-tight text-black sm:text-4xl">
+                        <h2 className="text-3xl bold-font font-bold leading-tight text-black sm:text-4xl dark:text-gray-200">
                             Register your Account
                         </h2>
 
@@ -84,58 +84,63 @@ function Register({ data, id }: any) {
                                     <div className='flex gap-4 w-full flex-col lg:flex-row'>
 
                                         <div className="flex flex-col w-full lg:w-6/12">
-                                            <label className="mb-1 light-font font-medium text-gray-500">First Name</label>
+                                            <label className="mb-1 light-font font-medium text-gray-500 dark:text-gray-300">First Name</label>
                                             <Field
                                                 type="text"
                                                 name="first_name"
                                                 placeholder="Enter your First Name"
-                                                className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                                                className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white dark:bg-[#18181b] dark:border-black text-gray-700 dark:text-gray-400 dark:outline-none"
+
                                             />
                                             <ErrorMessage name="first_name" component="div" className="text-red-600 text-sm mt-1" />
                                         </div>
 
                                         <div className="flex flex-col w-full lg:w-6/12">
 
-                                            <label className="mb-1  light-font font-medium text-gray-500">Middle Name</label>
+                                            <label className="mb-1  light-font font-medium text-gray-500 dark:text-gray-300">Middle Name</label>
                                             <Field
                                                 type="text"
                                                 name="middle_name"
                                                 placeholder="Enter your Middle Name"
-                                                className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                                                className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white dark:bg-[#18181b] dark:border-black text-gray-700 dark:text-gray-400 dark:outline-none"
+
                                             />
                                             <ErrorMessage name="middle_name" component="div" className="text-red-600 text-sm mt-1" />
                                         </div>
 
                                     </div>
                                     <div className="flex flex-col">
-                                        <label className="mb-1 light-font font-medium text-gray-500">Last Name</label>
+                                        <label className="mb-1 light-font font-medium text-gray-500 dark:text-gray-300">Last Name</label>
                                         <Field
                                             type="text"
                                             name="last_name"
                                             placeholder="Enter your last name"
-                                            className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                                            className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white dark:bg-[#18181b] dark:border-black text-gray-700 dark:text-gray-400 dark:outline-none"
+
                                         />
                                         <ErrorMessage name="last_name" component="div" className="text-red-600 text-sm mt-1" />
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label className="mb-1 light-font font-medium text-gray-500">Email</label>
+                                        <label className="mb-1 light-font font-medium text-gray-500 dark:text-gray-300">Email</label>
                                         <Field
                                             type="email"
                                             name="email"
                                             placeholder="Enter your email"
-                                            className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                                            className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white dark:bg-[#18181b] dark:border-black text-gray-700 dark:text-gray-400 dark:outline-none"
+
                                         />
                                         <ErrorMessage name="email" component="div" className="text-red-600 text-sm mt-1" />
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label className="mb-1 light-font font-medium text-gray-500">Password</label>
+                                        <label className="mb-1 light-font font-medium text-gray-500 dark:text-gray-300">Password</label>
                                         <Field
                                             type="password"
                                             name="password"
                                             placeholder="Enter your password"
-                                            className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                                            className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white dark:bg-[#18181b] dark:border-black text-gray-700 dark:text-gray-400 dark:outline-none"
+
                                         />
                                         <ErrorMessage name="password" component="div" className="text-red-600 text-sm mt-1" />
                                     </div>
@@ -146,7 +151,8 @@ function Register({ data, id }: any) {
                                             type="text"
                                             name="signature"
                                             placeholder="Enter your signature"
-                                            className="w-full light-font py-4 pl-4 pr-4 border border-gray-300 rounded-xl bg-white text-gray-700"
+                                                               className="w-full py-4 light-font pl-4 pr-4 border border-gray-300 rounded-xl bg-white dark:bg-[#18181b] dark:border-black text-gray-700 dark:text-gray-400 dark:outline-none"
+
                                         />
                                         <ErrorMessage name="signature" component="div" className="text-red-600 text-sm mt-1" />
                                     </div> */}

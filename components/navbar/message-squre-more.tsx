@@ -43,7 +43,7 @@ export const MessageDropDown = () => {
 
                         shape="circle"
                     >
-                        <MessagesSquare className="text-gray-600 cursor-pointer h-6 w-6" />
+                        <MessagesSquare className="text-gray-600 dark:text-gray-300 cursor-pointer h-6 w-6" />
                     </Badge>
                 </NavbarItem>
             </DropdownTrigger>
