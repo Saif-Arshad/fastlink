@@ -7,14 +7,15 @@ export default async function middleware(
 ) {
   const session = await getToken({ req: req as any });
   const isAuthenticated = !!session;
+  const isAdmin = session?.type == "admin"
 
   const url = req.nextUrl.clone();
 
-  // Redirect authenticated users from /login to /dashboard
-  if ((req.nextUrl.pathname.startsWith("/login") || req.nextUrl.pathname.startsWith("/register")) && isAuthenticated) {
-    url.pathname = "/dashboard";
+  if (req.nextUrl.pathname.startsWith("/login") && isAuthenticated) {
+    url.pathname = isAdmin ? "/dashboard" : "/dashboard/my-task";
     return NextResponse.redirect(url);
   }
+
 
   // Handle access to /dashboard and other pages
   if (req.nextUrl.pathname.startsWith("/dashboard") && !isAuthenticated) {

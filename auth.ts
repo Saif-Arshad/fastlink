@@ -69,11 +69,11 @@ const authOptions: AuthOptions = {
             };
           } else {
             // console.log("check your credentials");
+
             throw new Error("Invalid credentials");
           }
-        } catch (error) {
-          // console.error("Error during authorization:", error);
-          throw new Error("Invalid credentials");
+        } catch (error: any) {
+          throw new Error(`${error.response.data.error ? error.response.data.error : "Invalid credentials"}`);
         }
       },
     }),

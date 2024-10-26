@@ -36,7 +36,7 @@ export const SidebarWrapper = () => {
           <div className={Sidebar.Body()} >
             <SidebarMenu title={"Menu"} >
               {routes
-                .filter((route) => !route.admin || (route.admin && isAdmin))
+                .filter((route) => (route.admin ? isAdmin : !isAdmin))
                 .map((route) => (
                   <SidebarItem
                     key={route.href}

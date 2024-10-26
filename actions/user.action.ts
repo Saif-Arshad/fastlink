@@ -5,15 +5,9 @@ import axiosInstance from "@/config/axios";
 import { IUser, Result } from "@/helpers/types";
 import axios from "axios";
 
-export async function signOut(): Promise<Result<{ message: string }>> {
+export async function signOutUser(): Promise<Result<{ message: string }>> {
   try {
     await axiosInstance.post("/api/users/sign-out");
-
-    // Clear the token from local storage
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("token");
-    }
-
     return { data: { message: "Logged out successfully" } };
   } catch (error: any) {
     // Extract detailed error message if available
@@ -134,14 +128,28 @@ export async function getAllUsers({
     return { error: errorMessage };
   }
 }
-export async function getAllUsersWithOutPagination() {
+export async function getUserHistory({
+  page,
+  limit,
+}: {
+  page?: number;
+  limit?: number;
+}): Promise<Result<{ timestamps: any }>> {
   try {
-    const response = await axiosInstance.get("/api/users/getUsers",);
+    const response = await axiosInstance.get("/api/me/history", {
+      params: { page, limit },
+    });
 
-    return { data: response.data.body };
+    console.log(response.data.body)
+    // Return data and metadata
+    return { data: response.data.body, meta: response.data.meta };
   } catch (error: any) {
-    const errorMessage = error.response?.data?.error || "Fetch users failed";
-    // console.error("Fetch users failed:", errorMessage);
+    console.log("🚀 ~ error:", error)
+    // Check for a detailed error message or default to a generic message
+    const errorMessage =
+      error.response?.data?.error || "Fetch user history failed";
+
     return { error: errorMessage };
   }
 }
+

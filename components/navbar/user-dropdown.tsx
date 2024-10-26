@@ -10,6 +10,8 @@ import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import axiosInstance from "@/config/axios";
+import axios from "axios";
 
 export const UserDropdown = () => {
   const session = useSession();
@@ -22,12 +24,20 @@ export const UserDropdown = () => {
         ? name.charAt(0).toUpperCase()
         : email?.charAt(0).toUpperCase();
     }
-    return "U"; // Default if no user data is available
+    return "U";
   };
 
   const handleLogout = useCallback(async () => {
-    await signOut();
-    router.replace("/login");
+    try {
+      const userId = session.data?.user?.id;
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/sign-out`, { id: userId });
+      console.log("🚀 ~ handleLogout ~ res:", res)
+
+      await signOut({ redirect: false });
+      router.replace("/login");
+    } catch (error) {
+      console.log("🚀 ~ handleLogout ~ error:", error);
+    }
   }, [router]);
 
   return (
