@@ -8,6 +8,7 @@ import Link from "next/link";
 import UserModal from "./user-modal";
 import { deleteUser, editUser } from "@/actions/user.action";
 import { toast } from "sonner";
+import { History } from "lucide-react";
 
 interface Props {
   item: any;
@@ -81,6 +82,13 @@ export const RenderCell = ({ item, columnKey }: Props) => {
     case "actions":
       return (
         <div className="flex items-center gap-4">
+          <div>
+            <Tooltip content="History">
+              <Link href={`/dashboard/accounts/${item._id}`}>
+                <History size={20} className="text-[#979797]" />
+              </Link>
+            </Tooltip>
+          </div>
           <div>
             <Tooltip content="Details">
               <UserModal

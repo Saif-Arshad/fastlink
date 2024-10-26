@@ -27,7 +27,13 @@ export const RenderCell = ({ item, columnKey }: Props) => {
         case "loginTime":
             return (
                 <div>
-                    {cellValue.toLocal}
+                    {cellValue !== "N/A"
+
+                        ?
+                        <>
+                            {cellValue}
+                        </>
+                        : "N/A"}
                 </div>
             );
 

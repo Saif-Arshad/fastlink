@@ -48,7 +48,7 @@ export const History = ({
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
             <div className="flex justify-between flex-wrap gap-4 items-center">
                 <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                    <h3 className="text-xl regular-fontss font-semibold">My History</h3>
+                    <h3 className="text-xl regular-fontss font-semibold">Login History</h3>
                 </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">

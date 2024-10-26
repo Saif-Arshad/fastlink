@@ -3,7 +3,6 @@
 import { cookies } from "next/headers";
 import axiosInstance from "@/config/axios";
 import { IUser, Result } from "@/helpers/types";
-import axios from "axios";
 
 export async function signOutUser(): Promise<Result<{ message: string }>> {
   try {
@@ -32,17 +31,24 @@ export async function deleteUser(
   }
 }
 
-export async function getUserById(
-  id: string
-): Promise<Result<{ user: IUser }>> {
-  try {
-    const res = await axiosInstance.get(`/api/users/${id}`);
 
-    return { data: { user: res.data.body.user } };
+export async function getUserById(
+  id: string,
+  page: number,
+  limit: number,
+) {
+  try {
+    const res = await axiosInstance.get(`/api/users/${id}`, {
+      params: { page, limit },
+    });
+
+    const { timestamps } = res.data.body;
+    console.log("🚀 ~ timestamps:", timestamps)
+    console.log("🚀 ~ meta:", res.data)
+    const { meta } = res.data
+    return { data: { timestamps, meta } };
   } catch (error: any) {
-    // Extract detailed error message if available
-    const errorMessage = error.response?.data?.error || "Delete user failed";
-    // console.error("Delete user failed:", errorMessage);
+    const errorMessage = error.response?.data?.error || "Failed to get user timestamps";
     return { error: errorMessage };
   }
 }
