@@ -34,7 +34,7 @@ export const routes = [
   {
     title: "Daily Tasks",
     icon: LayoutGrid,
-    href: "/dashboard/1",
+    href: "/dashboard/task",
     admin: true,
   },
   {

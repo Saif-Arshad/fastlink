@@ -30,7 +30,17 @@ export async function deleteUser(
     return { error: errorMessage };
   }
 }
-
+export async function getAllUsersWithOutPagination() {
+  try {
+    const response = await axiosInstance.get("/api/users/user-without-pagination");
+    console.log(response.data.body)
+    return { data: response.data.body };
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.error || "Fetch users failed";
+    console.log("Fetch users failed:", error.response.data);
+    return { error: errorMessage };
+  }
+}
 
 export async function getUserById(
   id: string,
@@ -43,8 +53,6 @@ export async function getUserById(
     });
 
     const { timestamps } = res.data.body;
-    console.log("🚀 ~ timestamps:", timestamps)
-    console.log("🚀 ~ meta:", res.data)
     const { meta } = res.data
     return { data: { timestamps, meta } };
   } catch (error: any) {
