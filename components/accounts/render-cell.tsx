@@ -17,7 +17,6 @@ interface Props {
 
 export const RenderCell = ({ item, columnKey }: Props) => {
   const cellValue = item[columnKey as keyof any];
-
   const handleEditUser = async (_: string, data: any) => {
     toast.promise(
       editUser(item._id, data).then((result) => {
@@ -83,11 +82,15 @@ export const RenderCell = ({ item, columnKey }: Props) => {
       return (
         <div className="flex items-center gap-4">
           <div>
-            <Tooltip content="History">
-              <Link href={`/dashboard/accounts/${item._id}`}>
-                <History size={20} className="text-[#979797]" />
-              </Link>
-            </Tooltip>
+            {
+              item.type !== "admin" &&
+
+              <Tooltip content="History">
+                <Link href={`/dashboard/accounts/${item._id}`}>
+                  <History size={20} className="text-[#979797]" />
+                </Link>
+              </Tooltip>
+            }
           </div>
           <div>
             <Tooltip content="Details">

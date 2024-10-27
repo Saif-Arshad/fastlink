@@ -8,7 +8,7 @@ import { createUser, inviteUser } from "@/actions/user.action";
 import { toast } from "sonner";
 import useUpdateSearchParams from "../hooks/useUpdateSearchParams";
 
-export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta }) => {
+export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta; }) => {
   const { updateSearchParams } = useUpdateSearchParams();
   const columns = [
     { name: "Email", uid: "email" },
@@ -23,9 +23,10 @@ export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta }) => {
     toast.promise(
       createUser(data).then((result) => {
         if (result.error) {
-          throw new Error(result.error); // Manually throw an error if one is present
+          toast.success(result.error)
+          throw new Error(result.error);
         }
-        return result; // Return the result if no error
+        return result;
       }),
       {
         loading: "Creating user...",
@@ -39,6 +40,7 @@ export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta }) => {
     toast.promise(
       inviteUser(data).then((result) => {
         if (result.error) {
+          toast.success(result.error)
           throw new Error(result.error);
         }
         return result;

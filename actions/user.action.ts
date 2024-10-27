@@ -86,6 +86,7 @@ export async function createUser(data: IUser): Promise<Result<IUser>> {
 
     return { data: response.data.body.new_admin_user };
   } catch (error: any) {
+    console.log("🚀 ~ createUser ~ error:", error)
     // Extract detailed error message if available
     const errorMessage = error.response?.data?.error || "Create user failed";
     // console.error("Create user failed:", errorMessage);
@@ -100,7 +101,7 @@ export async function inviteUser(data: any) {
 
     return { data: response.data.body };
   } catch (error: any) {
-    // Extract detailed error message if available
+    console.log("🚀 ~ inviteUser ~ error:", error)
     const errorMessage = error.response?.data?.error || "Invite Member failed";
     // console.error("Create user failed:", errorMessage);
     return { error: errorMessage };
