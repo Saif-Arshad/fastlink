@@ -17,9 +17,10 @@ export async function createTask(taskData: any) {
 }
 
 // 2. Get User Tasks
-export async function getUserTasks(userId: any) {
+export async function getUserTasks() {
     try {
-        const response = await axiosInstance.get(`/api/tasks/user/${userId}`);
+        const response = await axiosInstance.get(`/api/tasks/user`);
+        console.log("🚀 ~ getUserTasks ~ response:", response.data)
         return { data: response.data };
     } catch (error: any) {
         const errorMessage = error.response?.data?.error || "Failed to fetch user tasks";

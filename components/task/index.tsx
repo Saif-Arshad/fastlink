@@ -19,8 +19,12 @@ interface Task {
     task: string;
     userIds: { _id: string; full_name: string }[];
 }
+interface Props {
+    UsersData?: any;
+    data: any;
+}
 
-function Task({ UsersData, data }: any) {
+function Task({ UsersData, data }: Props) {
     const [allTasks, setAllTasks] = useState<Task[]>(data);
     const { isAdmin } = useCheckAdmin()
     const colors = [
@@ -120,11 +124,18 @@ function Task({ UsersData, data }: any) {
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
             <div className="flex justify-between flex-wrap gap-4 items-center">
                 <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                    <h3 className="text-xl regular-fontss font-semibold">Task Management</h3>
+                    <h3 className="text-xl regular-fontss font-semibold">
+                        {
+                            isAdmin ? "Task Management" : "My Task"
+                        }
+                    </h3>
                 </div>
-                <div className="flex flex-row gap-3.5 flex-wrap">
-                    <TaskModal mode="Add" onConfirm={handleAddTask} usersData={UsersData} />
-                </div>
+                {
+                    isAdmin &&
+                    <div className="flex flex-row gap-3.5 flex-wrap">
+                        <TaskModal mode="Add" onConfirm={handleAddTask} usersData={UsersData} />
+                    </div>
+                }
             </div>
             <div className=" gap-4 my-8 flex items-center flex-wrap">
                 {allTasks && allTasks.slice().reverse().map((task: Task) => (

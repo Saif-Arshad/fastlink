@@ -1,8 +1,11 @@
+import { getUserTasks } from '@/actions/task.action'
+import Task from '@/components/task'
 import React from 'react'
 
-function page() {
+async function page() {
+    const { data, error } = await getUserTasks()
     return (
-        <div>page</div>
+        <Task data={data} />
     )
 }
 
