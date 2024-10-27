@@ -12,18 +12,25 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-const PerformanceCard = () => {
-    // Dummy data
-    const completedTasks = 124;
-    const completionPercentage = 86; // This is for the orange arc
-    const score = 79;
-    const improvement = 5;
+const PerformanceCard = ({ teamPerformanceData }: any) => {
+    console.log("🚀 ~ PerformanceCard ~ teamPerformanceData:", teamPerformanceData)
+
+    const {
+        completedTasks,
+        completionPercentage,
+        score,
+        improvement
+    } = teamPerformanceData;
+
+    // Using Math.round to remove decimals
+    const roundedScore = Math.round(score);
+    const roundedCompletionPercentage = Math.round(completionPercentage);
 
     // Chart.js data and options
     const data = {
         datasets: [
             {
-                data: [30, 40, 30],
+                data: [30, 40, 30],  // You might want to replace or adjust these data points dynamically based on actual data if needed
                 backgroundColor: ["#FF6B6B", "#E5E5E5", "#05549F"],
                 borderWidth: 0,
                 hoverBackgroundColor: ["#FF6B6B", "#E5E5E5", "#05549F"],
@@ -51,7 +58,7 @@ const PerformanceCard = () => {
                 <Doughnut data={data} options={options} />
                 {/* Adjusted Score Styling for perfect alignment */}
                 <div className="absolute top-[74%] left-1/2 transform -translate-x-1/2 -translate-y-[60%] text-center">
-                    <div className="text-4xl font-bold">{score}</div>
+                    <div className="text-4xl font-bold">{roundedScore}</div>
                     <div className="text-sm text-gray-500">Score</div>
                 </div>
             </div>
@@ -64,14 +71,14 @@ const PerformanceCard = () => {
                 View Details
             </button>
 
-            <div className="flex justify-between items-center text-sm px-4 border-t pt-2">
+            <div className="flex justify-between items-center text-sm  border-t pt-2">
                 <div className="flex items-center">
                     <span className="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
                     Completed {completedTasks}
                 </div>
                 <div className="flex items-center">
                     <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
-                    Percentage {completionPercentage}%
+                    Percentage {roundedCompletionPercentage}%
                 </div>
             </div>
         </div>

@@ -2,42 +2,50 @@ import axiosInstance from "@/config/axios";
 
 
 
-export async function userStats() {
+export async function fetchTaskSummary() {
     try {
-        const response = await axiosInstance.get("/api/stats/users");
-        console.log(response.data)
-        return { userStatsData: response.data };
+        const response = await axiosInstance.get("/api/stats/summary");
+        console.log(response.data);
+        return { taskSummaryData: response.data };
     } catch (error: any) {
-        console.log("🚀 ~ userStats ~ error:", error)
-        // Extract detailed error message if available
-        const errorMessage = error.response?.data?.error || "Failed to Fetch users stats";
-        // console.error("Fetch users failed:", errorMessage);
+        console.log("🚀 ~ fetchTaskSummary ~ error:", error);
+        const errorMessage = error.response?.data?.error || "Failed to fetch task summary";
         return { error: errorMessage };
     }
 }
-export async function getTableStats() {
+export async function fetchTeamPerformance() {
     try {
-        const response = await axiosInstance.get("/api/stats/tables");
-        console.log(response.data)
-        return { tableStatsData: response.data };
+        const response = await axiosInstance.get("/api/stats/performance");
+        console.log(response.data);
+        return { teamPerformanceData: response.data };
     } catch (error: any) {
-        console.log("🚀 ~ tables ~ error:", error)
+        console.log("🚀 ~ fetchTeamPerformance ~ error:", error);
+
         // Extract detailed error message if available
-        const errorMessage = error.response?.data?.error || "Failed to tables users stats";
-        // console.error("Fetch users failed:", errorMessage);
+        const errorMessage = error.response?.data?.error || "Failed to fetch team performance data";
         return { error: errorMessage };
     }
 }
-export async function getCardsStats() {
+export async function fetchTaskStatistics(view: any) {
     try {
-        const response = await axiosInstance.get("/api/stats/card-stats");
-        console.log(response.data)
-        return { statusData: response.data.statusData, totalProducts: response.data.totalProducts };
+        const response = await axiosInstance.get(`/api/stats/task-statistics?view=${view}`);
+        console.log(response.data);
+        return { taskStatisticsData: response.data };
     } catch (error: any) {
-        console.log("🚀 ~ tables ~ error:", error)
+        console.log("🚀 ~ fetchTaskStatistics ~ error:", error);
         // Extract detailed error message if available
-        const errorMessage = error.response?.data?.error || "Failed to tables users stats";
-        // console.error("Fetch users failed:", errorMessage);
+        const errorMessage = error.response?.data?.error || "Failed to fetch task statistics";
+        return { error: errorMessage };
+    }
+}
+export async function fetchUpcomingTasks() {
+    try {
+        const response = await axiosInstance.get("/api/stats/up-comming-task");
+        return { upcomingTasksData: response.data };
+    } catch (error: any) {
+        console.log("🚀 ~ fetchUpcomingTasks ~ error:", error);
+        // Extract detailed error message if available
+        const errorMessage = error.response?.data?.error || "Failed to fetch upcoming tasks";
         return { error: errorMessage };
     }
 }

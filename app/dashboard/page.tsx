@@ -1,24 +1,32 @@
+import { fetchTaskStatistics, fetchTaskSummary, fetchTeamPerformance, fetchUpcomingTasks } from "@/actions/stats.action";
 import TaskSummaryCard from "@/components/charts/Dashboard-Card";
 import MixedChart from "@/components/charts/MixedChart";
 import ProjectCard from "@/components/charts/Progress-Card";
 import TaskChart from "@/components/charts/TaskChart";
 import PerformanceCard from "@/components/charts/TeamPerformance";
 
-const Home = async () => {
-
-
+const Home = async (
+  {
+    searchParams,
+  }: {
+    searchParams: { view?: string; };
+  }
+) => {
+  const { taskSummaryData, error } = await fetchTaskSummary()
+  const { upcomingTasksData } = await fetchUpcomingTasks()
+  const { teamPerformanceData } = await fetchTeamPerformance()
   return <div className="flex-col  p-5 mt-7">
 
-    <TaskSummaryCard />
+    <TaskSummaryCard taskSummaryData={taskSummaryData} />
     <div className="flex flex-col md:flex-row items-start my-4 sm:space-x-4">
 
-      <ProjectCard />
+      <ProjectCard upcomingTasksData={upcomingTasksData} />
       <TaskChart />
     </div>
 
     <div className="flex flex-col md:flex-row items-start my-4 sm:space-x-4">
 
-      <PerformanceCard />
+      <PerformanceCard teamPerformanceData={teamPerformanceData} />
       <MixedChart />
     </div>
   </div>

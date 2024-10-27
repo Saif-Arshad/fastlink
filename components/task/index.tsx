@@ -139,7 +139,7 @@ function Task({ UsersData, data }: Props) {
             </div>
             <div className=" gap-4 my-8 flex items-center flex-wrap">
                 {allTasks && allTasks.slice().reverse().map((task: Task) => (
-                    <div key={task._id} className={`p-4 bg-white cursor-pointer min-w-[18rem] max-w-[18rem] dark:bg-[#18181b] rounded-xl border-1.5 ${borderColorClasses[task.priority]} flex flex-col gap-4`}>
+                    <div key={task._id} className={`p-4 bg-white cursor-pointer min-w-[18rem] max-w-[18rem] dark:bg-[#18181b] rounded-xl border-1 ${borderColorClasses[task.priority]} flex flex-col gap-4`}>
                         <div className="flex justify-between items-center border-b pb-2">
                             {/* <Chip variant="flat" color={priorityColors[task.priority]} className="capitalize">
                                 {task.priority}
