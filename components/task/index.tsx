@@ -7,9 +7,22 @@ import { createTask, deleteTask, updateTaskStatus } from '@/actions/task.action'
 import { EditIcon } from '../icons/table/edit-icon';
 import { DeleteIcon } from '../icons/table/delete-icon';
 import { useRouter } from "next/navigation";
+import { EyeIcon } from '../icons/table/eye-icon';
+import { useCheckAdmin } from '../hooks/useCheckingAdmin';
+type TaskPriority = "medium" | "high" | "low" | "critical";
+type TaskStatus = "assigned" | "in_progress" | "completed" | "on_hold" | "cancelled" | "review" | "approved";
+interface Task {
+    _id: string;
+    priority: TaskPriority;
+    status: TaskStatus;
+    title: string;
+    task: string;
+    userIds: { _id: string; full_name: string }[];
+}
 
 function Task({ UsersData, data }: any) {
-    const [allTasks, setAllTasks] = useState(data);
+    const [allTasks, setAllTasks] = useState<Task[]>(data);
+    const { isAdmin } = useCheckAdmin()
     const colors = [
         "bg-red-500",
         "bg-green-500",
@@ -20,6 +33,25 @@ function Task({ UsersData, data }: any) {
         "bg-indigo-500",
         "bg-teal-500"
     ];
+
+    const priorityColors = {
+        medium: "warning",
+        high: "danger",
+        low: "success",
+        critical: "danger",
+    };
+
+    const statusColors = {
+        assigned: "primary",
+        in_progress: "secondary",
+        completed: "success",
+        on_hold: "warning",
+        cancelled: "danger",
+        review: "secondary",
+        approved: "success",
+    };
+
+
     const router = useRouter()
     useEffect(() => {
         if (data) {
@@ -58,6 +90,12 @@ function Task({ UsersData, data }: any) {
             }
         );
     };
+    const borderColorClasses = {
+        medium: "border-yellow-500",
+        high: "border-red-500",
+        low: "border-green-500",
+        critical: "border-purple-500",
+    };
     const handleAddTask = async (_: string, data: any) => {
         toast.promise(
             createTask(data).then((result) => {
@@ -88,61 +126,69 @@ function Task({ UsersData, data }: any) {
                     <TaskModal mode="Add" onConfirm={handleAddTask} usersData={UsersData} />
                 </div>
             </div>
-
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {allTasks && allTasks.map((task: any) => (
-                    <div key={task._id} className="p-4 bg-white dark:bg-[#18181b] shadow-lg rounded-lg border border-gray-200 flex flex-col gap-4">
-                        <div className="flex justify-between items-center">
-                            <Chip variant="flat" color="warning" className="capitalize">
+            <div className=" gap-4 my-8 flex items-center flex-wrap">
+                {allTasks && allTasks.slice().reverse().map((task: Task) => (
+                    <div key={task._id} className={`p-4 bg-white cursor-pointer min-w-[18rem] max-w-[18rem] dark:bg-[#18181b] rounded-xl border-1.5 ${borderColorClasses[task.priority]} flex flex-col gap-4`}>
+                        <div className="flex justify-between items-center border-b pb-2">
+                            {/* <Chip variant="flat" color={priorityColors[task.priority]} className="capitalize">
                                 {task.priority}
-                            </Chip>
-
-
+                            </Chip> */}
+                            <div className="flex justify-between items-center">
+                                {/* @ts-ignore */}
+                                <Chip variant="flat" color={statusColors[task.status]} className="capitalize">
+                                    {formatStatus(task.status)}
+                                </Chip>
+                            </div>
                             <div className='flex items-center gap-2'>
 
                                 <TaskModal
+                                    button={<EyeIcon size={20} fill="#979797" />}
+                                    mode="View" data={task}
+                                />
+                                <TaskModal
                                     button={<EditIcon size={20} fill="#1a740e" />}
-                                    mode="Edit" onConfirm={handleEditUser} usersData={UsersData} data={task} />
-
-                                <button onClick={(() => handleDeleteTask(task._id))}>
-
-                                    <DeleteIcon size={20} fill="#FF0080" />
-                                </button>
+                                    mode="Edit" onConfirm={handleEditUser} usersData={UsersData} data={task}
+                                />
+                                {
+                                    isAdmin &&
+                                    <button onClick={() => handleDeleteTask(task._id)}>
+                                        <DeleteIcon size={20} fill="#FF0080" />
+                                    </button>
+                                }
                             </div>
                         </div>
 
                         <h5 className="text-lg font-semibold capitalize text-gray-800 dark:text-gray-100">
                             {task.title}
                         </h5>
+                        <div className="flex gap-x-1 -mt-2 relative ml-5">
+                            {task.userIds.map((user: any, index: number) => (
+                                <Tooltip key={user._id} content={user.full_name} className="cursor-pointer">
+                                    <Avatar
+                                        name={user.full_name.toUpperCase()}
+                                        size="sm"
+                                        className={`text-white ${colors[index % colors.length]} avatar-stacked`}
+                                        style={{ zIndex: task.userIds.length + index }}
+                                    />
+                                </Tooltip>
+                            ))}
+                        </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
                             {task.task}
                         </p>
 
-                        {/* User Avatars */}
-                        < div className="flex gap-2 mt-3" >
-                            {
-                                task.userIds.map((user: any, index: number) => (
-                                    <Tooltip key={user._id} content={user.full_name} className="cursor-pointer">
-                                        <Avatar
-                                            name={user.full_name.toUpperCase()}
-                                            size="sm"
-                                            className={`text-white ${colors[index % colors.length]}`}
-                                        />
-                                    </Tooltip>
-                                ))
-                            }
-                        </div>
 
-                        {/* Footer with Status, Comments, and Views */}
-                        <div className="flex justify-between items-center mt-4">
-                            <Chip variant="flat" color="success" className="capitalize">
-                                {formatStatus(task.status)}
-                            </Chip>
-                        </div>
+
+                        {/* <div className="flex justify-between items-center mt-4">
+                        <Chip variant="flat" color={statusColors[task.status]} className="capitalize">
+                            {formatStatus(task.status)}
+                        </Chip>
+                    </div> */}
                     </div>
-                ))
-                }
-            </div >
+                ))}
+            </div>
+
+
         </div >
     );
 }

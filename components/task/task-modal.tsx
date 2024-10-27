@@ -11,7 +11,9 @@ import {
     Select,
     SelectItem,
     Chip,
-    Textarea
+    Textarea,
+    Tooltip,
+    Avatar
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { Plus, Send } from "lucide-react";
@@ -61,7 +63,16 @@ const TaskModal = ({
     const isViewMode = mode === "View";
     const isEditMode = mode === "Edit";
     const buttonText = isViewMode ? "Done" : `${mode} Task`;
-
+    const colors = [
+        "bg-red-500",
+        "bg-green-500",
+        "bg-blue-500",
+        "bg-purple-500",
+        "bg-yellow-500",
+        "bg-pink-500",
+        "bg-indigo-500",
+        "bg-teal-500"
+    ];
     useEffect(() => {
         if (data) {
             setTaskData((prevState) => ({
@@ -115,6 +126,25 @@ const TaskModal = ({
         }));
     };
 
+    const formatStatus = (status: string) => {
+        return status.includes('_') ? status.replace('_', ' ') : status;
+    };
+
+    const statusColors = {
+        assigned: "primary",
+        in_progress: "secondary",
+        completed: "success",
+        on_hold: "warning",
+        cancelled: "danger",
+        review: "secondary",
+        approved: "success",
+    };
+    const priorityColors = {
+        medium: "warning",
+        high: "danger",
+        low: "success",
+        critical: "danger",
+    };
     return (
         <div>
             {button ? (
@@ -125,7 +155,7 @@ const TaskModal = ({
                     {mode} Task
                 </Button>
             )}
-            <Modal isOpen={isOpen} onClose={onClose} placement="top-center">
+            <Modal isOpen={isOpen} onClose={onClose} placement="top-center" >
                 <ModalContent>
                     <ModalHeader>{title}</ModalHeader>
                     <ModalBody>
@@ -146,84 +176,133 @@ const TaskModal = ({
                                 <SelectItem key="review">Review</SelectItem>
                                 <SelectItem key="approved">Approved</SelectItem>
                             </Select>
-                        ) : (
-                            <>
-                                <Input
-                                    name="title"
-                                    label="Task Title"
-                                    type="text"
-                                    value={taskData.title}
-                                    onChange={handleChange}
-                                    variant="bordered"
-                                    disabled={isViewMode}
-
-                                />
-                                <Input
-                                    name="dueDate"
-                                    label="Due Date"
-                                    type="date"
-                                    value={taskData.dueDate}
-                                    onChange={handleChange}
-                                    variant="bordered"
-                                    disabled={isViewMode}
-                                />
-                                <Select
-                                    name="priority"
-                                    label="Task Priority"
-
-                                    selectedKeys={[taskData.priority]}
-                                    onChange={handleChange}
-                                    variant="bordered"
-                                >
-                                    <SelectItem key="medium">Medium</SelectItem>
-                                    <SelectItem key="high">High</SelectItem>
-                                    <SelectItem key="low">Low</SelectItem>
-                                    <SelectItem key="critical">Critical</SelectItem>
-                                </Select>
-
-                                <Select
-                                    items={usersData.users}
-                                    variant="bordered"
-                                    isMultiline={true}
-                                    selectionMode="multiple"
-                                    placeholder="Assign to Employees"
-                                    labelPlacement="outside"
-                                    // @ts-ignore
-                                    onSelectionChange={handleSelectionChange}
-                                    selectedKeys={new Set(selectedUsers)}
-                                    classNames={{
-                                        base: "w-full",
-                                        trigger: "min-h-12 py-2",
-                                    }}
-                                    renderValue={(items) => (
-                                        <div className="flex flex-wrap gap-2">
-                                            {items.map((item) => (
-                                                <Chip key={item.key}>{item.data.full_name}</Chip>
-                                            ))}
+                        ) :
+                            isViewMode ?
+                                <>
+                                    <div className="w-full flex items-center justify-between my-3">
+                                        <div className="flex items-center gap-x-2">
+                                            {/* @ts-ignore */}
+                                            Priority    <Chip variant="flat" color={priorityColors[data.priority]} className="capitalize">
+                                                {data.priority}
+                                            </Chip>
                                         </div>
-                                    )}
-                                >
-                                    {(user: any) => (
-                                        <SelectItem key={user._id} textValue={user.full_name}>
-                                            <div className="flex gap-2 items-center">
-                                                <div className="flex flex-col">
-                                                    <span className="text-small">{user.full_name}</span>
-                                                    <span className="text-tiny text-default-400">{user.email}</span>
+                                        <div className="flex justify-between items-center gap-x-2">
+                                            Current Status
+                                            {/* @ts-ignore */}
+                                            <Chip variant="flat" color={statusColors[data.status]} className="capitalize">
+                                                {formatStatus(data.status)}
+                                            </Chip>
+                                        </div>
+                                    </div>
+                                    <h1 className="font-semibold capitalize text-xl">
+                                        {data.title}
+                                    </h1>
+                                    <div className="flex gap-x-1 -mt-2 relative ml-5">
+                                        {data.userIds.map((user: any, index: number) => (
+                                            <Tooltip key={user._id} content={user.full_name} className="cursor-pointer">
+                                                <Avatar
+                                                    name={user.full_name.toUpperCase()}
+                                                    size="sm"
+                                                    className={`text-white ${colors[index % colors.length]} avatar-stacked`}
+                                                    style={{ zIndex: data.userIds.length + index }}
+                                                />
+                                            </Tooltip>
+                                        ))}
+                                    </div>
+                                    <p>
+
+                                        {data.task}
+                                    </p>
+
+                                    <div className="flex items-center justify-between mt-6 text-sm font-light">
+                                        <p>
+                                            Assigned By {data.assignedBy?.full_name}
+                                        </p>
+                                        <p>
+                                            Due Date {new Date(data.dueDate).toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' })}
+                                        </p>
+
+                                    </div>
+                                </>
+                                :
+                                (
+                                    <>
+                                        <Input
+                                            name="title"
+                                            label="Task Title"
+                                            type="text"
+                                            value={taskData.title}
+                                            onChange={handleChange}
+                                            variant="bordered"
+                                            disabled={isViewMode}
+
+                                        />
+                                        <Input
+                                            name="dueDate"
+                                            label="Due Date"
+                                            type="date"
+                                            value={taskData.dueDate}
+                                            onChange={handleChange}
+                                            variant="bordered"
+                                            disabled={isViewMode}
+                                        />
+                                        <Select
+                                            name="priority"
+                                            label="Task Priority"
+
+                                            selectedKeys={[taskData.priority]}
+                                            onChange={handleChange}
+                                            variant="bordered"
+                                        >
+                                            <SelectItem key="medium">Medium</SelectItem>
+                                            <SelectItem key="high">High</SelectItem>
+                                            <SelectItem key="low">Low</SelectItem>
+                                            <SelectItem key="critical">Critical</SelectItem>
+                                        </Select>
+
+                                        <Select
+                                            items={usersData.users}
+                                            variant="bordered"
+                                            isMultiline={true}
+                                            selectionMode="multiple"
+                                            placeholder="Assign to Employees"
+                                            labelPlacement="outside"
+                                            // @ts-ignore
+                                            onSelectionChange={handleSelectionChange}
+                                            selectedKeys={new Set(selectedUsers)}
+                                            classNames={{
+                                                base: "w-full",
+                                                trigger: "min-h-12 py-2",
+                                            }}
+                                            renderValue={(items) => (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {items.map((item) => (
+                                                        <Chip key={item.key}>{item.data.full_name}</Chip>
+                                                    ))}
                                                 </div>
-                                            </div>
-                                        </SelectItem>
-                                    )}
-                                </Select>
-                                <Textarea
-                                    name="task"
-                                    label="Task Description"
-                                    value={taskData.task}
-                                    onChange={handleChange}
-                                    variant="bordered"
-                                    disabled={isViewMode}
-                                />
-                            </>
-                        )}
+                                            )}
+                                        >
+                                            {(user: any) => (
+                                                <SelectItem key={user._id} textValue={user.full_name}>
+                                                    <div className="flex gap-2 items-center">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-small">{user.full_name}</span>
+                                                            <span className="text-tiny text-default-400">{user.email}</span>
+                                                        </div>
+                                                    </div>
+                                                </SelectItem>
+                                            )}
+                                        </Select>
+                                        <Textarea
+                                            name="task"
+                                            label="Task Description"
+                                            value={taskData.task}
+                                            onChange={handleChange}
+                                            variant="bordered"
+                                            disabled={isViewMode}
+                                        />
+                                    </>
+                                )}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" variant="flat" onPress={onClose}>
