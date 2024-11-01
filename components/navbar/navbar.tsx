@@ -40,6 +40,7 @@ const navLinks = [
 
 export const NavbarWrapper = ({ children }: Props) => {
   const [isCheckIn, setIsCheckIn] = useState(false);
+  const { isAdmin } = useCheckAdmin()
   useEffect(() => {
     // Check if the user is already checked in on component mount
     const checkInStatus = localStorage.getItem("isCheckIn") === "true";
@@ -101,16 +102,22 @@ export const NavbarWrapper = ({ children }: Props) => {
           {/* <MessageDropDown />
           <NotificationsDropdown /> */}
           <DarkModeSwitch />
-          <button
-            onClick={CheckIn}
-            disabled={isCheckIn}
-            className={`text-sm bg-[#05549F] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300 ${isCheckIn ? "opacity-50 cursor-not-allowed" : ""}`}
-          >
-            Check In
-          </button>
-          <button onClick={CheckOut} className="text-sm bg-[#9f0505] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300">
-            Check Out
-          </button>
+          {
+            !isAdmin &&
+            <>
+              <button
+                onClick={CheckIn}
+                disabled={isCheckIn}
+                className={`text-sm bg-[#05549F] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300 ${isCheckIn ? "opacity-50 cursor-not-allowed" : ""}`}
+              >
+                Check In
+              </button>
+              <button onClick={CheckOut} className="text-sm bg-[#9f0505] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300">
+                Check Out
+              </button>
+
+            </>
+          }
           <NavbarContent>
             <UserDropdown />
           </NavbarContent>
