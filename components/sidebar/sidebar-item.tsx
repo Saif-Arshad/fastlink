@@ -4,7 +4,7 @@ import { useSidebarContext } from "../layout/layout-context";
 import clsx from "clsx";
 
 interface Props {
-  title: string;
+  title?: string;
   icon: React.ReactNode;
   isActive?: boolean;
   href?: string;
@@ -35,7 +35,7 @@ export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
         <span className="text-[15px]  dark:text-gray-300">
           {icon}
         </span>
-        <span className={`${isActive ? "text-white " : "text-default-900 dark:text-gray-300"}`}>{title}</span>
+        <span className={`${isActive ? "text-white " : "text-default-900 dark:text-gray-300"}`}>{title ? title : ""}</span>
       </div>
     </NextLink >
   );
