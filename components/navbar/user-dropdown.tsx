@@ -49,7 +49,7 @@ export const UserDropdown = () => {
             color="primary"
             size="md"
             src="/user.jpeg"
-            className="rounded-[10px] object-cover ml-7"
+            className="rounded-full object-cover ml-7"
           />
         </DropdownTrigger>
       </NavbarItem>

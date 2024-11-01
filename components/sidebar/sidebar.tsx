@@ -36,7 +36,7 @@ export const SidebarWrapper = () => {
           <div className={Sidebar.Body()} >
             <SidebarMenu title={"Menu"} >
               {routes
-                .filter((route) => (route.admin ? isAdmin : !isAdmin))
+                .filter((route) => route.admin === undefined || route.admin === isAdmin)
                 .map((route) => (
                   <SidebarItem
                     key={route.href}
@@ -50,7 +50,7 @@ export const SidebarWrapper = () => {
 
             <div className="flex flex-col w-full">
 
-              <ul className="w-full mt-4 space-y-3 flex flex-col">
+              {/* <ul className="w-full mt-4 space-y-3 flex flex-col">
 
                 <SidebarMenu title={"Scheduled Events"}
                 >
@@ -68,15 +68,15 @@ export const SidebarWrapper = () => {
                   }
 
                 </SidebarMenu>
-              </ul>
+              </ul> */}
 
-              <div className="w-full rounded-md border p-1 group border-slate-300 cursor-pointer hover:bg-[#05549F] my-5 flex items-center">
+              <div className="w-full rounded-md p-1 group  cursor-pointer hover:bg-[#05549F] my-5 flex items-center">
                 <Image
                   src={"/user.jpeg"}
                   alt="user"
                   height={100}
                   width={100}
-                  className="h-10 w-10 rounded-md object-cover"
+                  className="h-10 w-10 rounded-full object-cover"
                 />
                 <span className="text-base  font-semibold ml-2 text-[#05549F] group-hover:text-white regular-font">
                   Abdulla Lootah

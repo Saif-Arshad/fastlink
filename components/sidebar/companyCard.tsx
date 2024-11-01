@@ -15,7 +15,7 @@ const CompanyCard = () => {
             alt="Company Logo"
             width={100}
             height={100}
-            className="w-[150px] h-[50px] bg-blend-multiply"
+            className="h-auto w-10"
           />
 
 

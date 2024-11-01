@@ -20,9 +20,12 @@ type DataItem = Record<string, any>;
 type RenderCellFunction<T> = ({
   item,
   columnKey,
+  isAdmin,
 }: {
   item: T;
   columnKey: string | React.Key;
+  isAdmin?: boolean
+
 }) => React.ReactNode;
 
 interface TableWrapperProps<T> {
@@ -30,11 +33,13 @@ interface TableWrapperProps<T> {
   columns: IColumn[];
   RenderCell: RenderCellFunction<T>;
   meta: IMeta;
+  isAdmin?: boolean
 }
 
 export const TableWrapper = <T extends DataItem>({
   data,
   columns,
+  isAdmin,
   meta,
   RenderCell,
 }: TableWrapperProps<T>) => {
@@ -59,7 +64,7 @@ export const TableWrapper = <T extends DataItem>({
             <TableRow key={item._id}>
               {(columnKey) => (
                 <TableCell>
-                  {RenderCell({ item: item, columnKey: columnKey })}
+                  {RenderCell({ item: item, columnKey: columnKey, isAdmin })}
                 </TableCell>
               )}
             </TableRow>

@@ -20,13 +20,13 @@ const Home = async (
     <TaskSummaryCard taskSummaryData={taskSummaryData} />
     <div className="flex flex-col md:flex-row items-start my-4 sm:space-x-4">
 
-      <ProjectCard upcomingTasksData={upcomingTasksData} />
+      <PerformanceCard teamPerformanceData={teamPerformanceData} />
       <TaskChart />
     </div>
 
     <div className="flex flex-col md:flex-row items-start my-4 sm:space-x-4">
 
-      <PerformanceCard teamPerformanceData={teamPerformanceData} />
+      <ProjectCard upcomingTasksData={upcomingTasksData} />
       <MixedChart />
     </div>
   </div>

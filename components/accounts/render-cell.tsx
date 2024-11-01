@@ -12,10 +12,12 @@ import { History } from "lucide-react";
 
 interface Props {
   item: any;
+  isAdmin?: boolean
+
   columnKey: string | React.Key;
 }
 
-export const RenderCell = ({ item, columnKey }: Props) => {
+export const RenderCell = ({ item, columnKey, isAdmin }: Props) => {
   const cellValue = item[columnKey as keyof any];
   const handleEditUser = async (_: string, data: any) => {
     toast.promise(
@@ -83,7 +85,7 @@ export const RenderCell = ({ item, columnKey }: Props) => {
         <div className="flex items-center gap-4">
           <div>
             {
-              item.type !== "admin" &&
+              (item.type !== "admin" && isAdmin) &&
 
               <Tooltip content="History">
                 <Link href={`/dashboard/accounts/${item._id}`}>
@@ -101,26 +103,32 @@ export const RenderCell = ({ item, columnKey }: Props) => {
               />
             </Tooltip>
           </div>
-          <div>
-            <Tooltip content="Edit user" color="secondary">
-              <UserModal
-                button={<EditIcon size={20} fill="#1a740e" />}
-                mode="Edit"
-                data={item}
-                onConfirm={handleEditUser}
-              />
-            </Tooltip>
-          </div>
-          <div>
-            <Tooltip content="Delete user" color="danger">
-              <UserModal
-                button={<DeleteIcon size={20} fill="#FF0080" />}
-                mode="Delete"
-                data={item}
-                onConfirm={handleDeleteUser}
-              />
-            </Tooltip>
-          </div>
+          {
+            isAdmin &&
+            <>
+              <div>
+                <Tooltip content="Edit user" color="secondary">
+                  <UserModal
+                    button={<EditIcon size={20} fill="#1a740e" />}
+                    mode="Edit"
+                    data={item}
+                    onConfirm={handleEditUser}
+                  />
+                </Tooltip>
+              </div>
+              <div>
+                <Tooltip content="Delete user" color="danger">
+                  <UserModal
+                    button={<DeleteIcon size={20} fill="#FF0080" />}
+                    mode="Delete"
+                    data={item}
+                    onConfirm={handleDeleteUser}
+                  />
+                </Tooltip>
+              </div>
+
+            </>
+          }
         </div>
       );
 

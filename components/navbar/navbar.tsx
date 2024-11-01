@@ -34,12 +34,10 @@ const navLinks = [
   },
 ]
 export const NavbarWrapper = ({ children }: Props) => {
-
-  const { isAdmin } = useCheckAdmin()
   return (
     <div className="relative flex flex-col w-full  flex-1 overflow-y-auto overflow-x-hidden">
       <Navbar
-        className="w-full mx-auto"
+        className="w-full mx-auto fixed top-0 bg-white dark:bg-black"
         classNames={{
           wrapper: "w-full max-w-full ",
         }}
@@ -61,15 +59,17 @@ export const NavbarWrapper = ({ children }: Props) => {
           justify="end"
           className="w-fit ml-auto data-[justify=end]:flex-grow-0"
         >
-          <MessageDropDown />
-          <NotificationsDropdown />
+          {/* <MessageDropDown />
+          <NotificationsDropdown /> */}
           <DarkModeSwitch />
           <NavbarContent>
             <UserDropdown />
           </NavbarContent>
         </NavbarContent>
       </Navbar>
-      {children}
+      <div className="pt-10">
+        {children}
+      </div>
     </div>
   );
 };

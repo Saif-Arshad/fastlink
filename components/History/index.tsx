@@ -17,8 +17,8 @@ export const History = ({
     const columns = [
         { name: "Day", uid: "day" },
         { name: "Date", uid: "date" },
-        { name: "Login Time", uid: "loginTime" },
-        { name: "Logout Time", uid: "logoutTime" },
+        { name: "Check In Time", uid: "loginTime" },
+        { name: "Check Out Time", uid: "logoutTime" },
     ];
 
     const formattedData = data.timestamps.map((timestamp: any) => {

@@ -7,9 +7,11 @@ import UserModal from "./user-modal";
 import { createUser, inviteUser } from "@/actions/user.action";
 import { toast } from "sonner";
 import useUpdateSearchParams from "../hooks/useUpdateSearchParams";
+import { useCheckAdmin } from "../hooks/useCheckingAdmin";
 
 export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta; }) => {
   const { updateSearchParams } = useUpdateSearchParams();
+  const { isAdmin } = useCheckAdmin()
   const columns = [
     { name: "Email", uid: "email" },
     { name: "Full Name", uid: "full_name" },
@@ -58,14 +60,18 @@ export const Accounts = ({ data, meta }: { data: IUser[]; meta: IMeta; }) => {
         <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
           <h3 className="text-xl regular-fontss font-semibold">Team Members</h3>
         </div>
-        <div className="flex flex-row gap-3.5 flex-wrap">
-          <UserModal mode="Invite" onConfirm={handleInviteUser} />
-          <UserModal mode="Add" onConfirm={handleAddUser} />
-        </div>
+        {
+          isAdmin &&
+          <div className="flex flex-row gap-3.5 flex-wrap">
+            <UserModal mode="Invite" onConfirm={handleInviteUser} />
+            <UserModal mode="Add" onConfirm={handleAddUser} />
+          </div>
+        }
       </div>
       <div className="max-w-[95rem] mx-auto w-full">
         <TableWrapper
           meta={meta}
+          isAdmin={isAdmin}
           RenderCell={RenderCell}
           data={data}
           columns={columns}

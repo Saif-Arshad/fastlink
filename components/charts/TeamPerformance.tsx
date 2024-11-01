@@ -49,8 +49,8 @@ const PerformanceCard = ({ teamPerformanceData }: any) => {
     };
 
     return (
-        <div className="bg-white p-6 rounded-xl border-2 border-slate-50 w-full lg:w-[30%] text-center dark:bg-[#18181b] dark:border-black">
-            <div className="text-lg font-semibold mb-6 text-gray-600 dark:text-gray-300">
+        <div className="bg-white p-6 py-6 rounded-xl border-2 border-slate-50 w-full lg:w-[30%] text-center dark:bg-[#18181b] dark:border-black">
+            <div className="text-lg font-semibold mb-3 text-gray-600 dark:text-gray-300">
                 Your Team Performance This Week
             </div>
 
@@ -66,12 +66,12 @@ const PerformanceCard = ({ teamPerformanceData }: any) => {
             <div className="text-sm text-gray-500 mb-4">
                 Your team performance is {improvement}% better this week.
             </div>
-
+            {/* 
             <button className="bg-teal-500 text-white py-2 px-8 rounded-full mb-6 hover:bg-teal-600 transition">
                 View Details
-            </button>
+            </button> */}
 
-            <div className="flex justify-between items-center text-sm  border-t pt-2">
+            <div className="flex justify-between items-center text-sm mt-4 border-t pt-2">
                 <div className="flex items-center">
                     <span className="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
                     Completed {completedTasks}

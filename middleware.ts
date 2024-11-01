@@ -7,12 +7,11 @@ export default async function middleware(
 ) {
   const session = await getToken({ req: req as any });
   const isAuthenticated = !!session;
-  const isAdmin = session?.type == "admin"
 
   const url = req.nextUrl.clone();
 
   if (req.nextUrl.pathname.startsWith("/login") && isAuthenticated) {
-    url.pathname = isAdmin ? "/dashboard" : "/dashboard/my-task";
+    url.pathname = "/dashboard"
     return NextResponse.redirect(url);
   }
 

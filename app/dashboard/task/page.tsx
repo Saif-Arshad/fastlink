@@ -7,6 +7,7 @@ async function page() {
     const { data: UsersData = [] } = await getAllUsersWithOutPagination()
     const { data } = await getAllTasks()
     console.log("🚀 ~ page ~ data:", data)
+
     return (
         <Task UsersData={UsersData} data={data} />
     )
