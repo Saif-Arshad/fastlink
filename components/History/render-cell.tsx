@@ -49,7 +49,10 @@ export const RenderCell = ({ item, columnKey }: Props) => {
                         : "N/A"}
                 </div>
             );
-
+        case "signature":
+            return (
+                <h3 className="signature font-semibold">{cellValue}</h3>
+            )
         default:
             return <div>{cellValue}</div>;
     }

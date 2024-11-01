@@ -22,6 +22,11 @@
   src: url(../public/Font/Poppins-Light.ttf)
 }
 
+@font-face {
+  font-family: signature;
+  src: url(../public/Font/Creattion\ Demo.otf)
+}
+
 
 label,
 p {
@@ -31,6 +36,9 @@ p {
 
 .light-font {
   font-family: "poppins-light" !important;
+}
+.signature {
+  font-family: "signature" !important;
 }
 
 .regular-font {

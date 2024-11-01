@@ -76,7 +76,30 @@ export async function editUser(
     return { error: errorMessage };
   }
 }
+export async function checkInUser() {
+  try {
+    const response = await axiosInstance.post(`/api/users/check-in`);
+    console.log("🚀 ~ checkInUser ~ response:", response.data);
+    return { data: response.data };
+  } catch (error: any) {
+    console.log(error.response.data)
+    const errorMessage = error.response?.data || "Failed to check in";
+    console.error("Check in failed:", errorMessage);
+    return { error: errorMessage };
+  }
+}
 
+export async function checkOutUser() {
+  try {
+    const response = await axiosInstance.post(`/api/users/check-out`);
+    console.log("🚀 ~ checkOutUser ~ response:", response.data);
+    return { data: response.data };
+  } catch (error: any) {
+    const errorMessage = error.response?.data || "Failed to check out";
+    console.error("Check out failed:", errorMessage);
+    return { error: errorMessage };
+  }
+}
 export async function createUser(data: IUser): Promise<Result<IUser>> {
   try {
     const response = await axiosInstance.post("/api/users", {

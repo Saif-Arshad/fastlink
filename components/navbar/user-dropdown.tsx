@@ -30,8 +30,8 @@ export const UserDropdown = () => {
   const handleLogout = useCallback(async () => {
     try {
       const userId = session.data?.user?.id;
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/sign-out`, { id: userId });
-      console.log("🚀 ~ handleLogout ~ res:", res)
+      // const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/sign-out`, { id: userId });
+      // console.log("🚀 ~ handleLogout ~ res:", res)
 
       await signOut({ redirect: false });
       router.replace("/login");

@@ -42,12 +42,12 @@ export const routes = [
     href: "/dashboard/my-task",
     admin: false,
   },
-  // {
-  //   title: "Login History",
-  //   icon: History,
-  //   href: "/dashboard/my-history",
-  //   admin: false,
-  // },
+  {
+    title: "Schedule History",
+    icon: History,
+    href: "/dashboard/my-history",
+    admin: false,
+  },
 
   {
     title: "Settings",

@@ -15,8 +15,12 @@ import {
     Tooltip,
     Avatar
 } from "@nextui-org/react";
+import axios from 'axios';
 import { useRouter } from "next/navigation";
-import { Plus, Send } from "lucide-react";
+import { Download, Plus, Send } from "lucide-react";
+import { saveAs } from 'file-saver';
+
+
 
 interface TaskData {
     task: string;
@@ -24,6 +28,7 @@ interface TaskData {
     assignedBy: string;
     dueDate: string;
     priority: string;
+    fileUrl: string;
     title: string;
     status: string;
 }
@@ -48,16 +53,19 @@ const TaskModal = ({
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const [selectedUsers, setSelectedUsers] = useState<any>([]);
+    const [loading, setLoading] = useState(false)
     const [taskData, setTaskData] = useState<TaskData>({
         task: "",
         userIds: [],
         assignedBy: "",
         dueDate: "",
         title: "",
+        fileUrl: "",
         priority: "low",
         status: "assigned",
         ...data,
     });
+    console.log("🚀 ~ taskData:", taskData)
 
     const title = `${mode} Task`;
     const isViewMode = mode === "View";
@@ -89,7 +97,15 @@ const TaskModal = ({
             [name]: value,
         }));
     };
-
+    const downloadFile = async (url: any) => {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            saveAs(blob, "Task.pdf");
+        } catch (error) {
+            console.error('Failed to download the file:', error);
+        }
+    };
     const handleConfirm = async () => {
         if (onConfirm) {
             if (isEditMode) {
@@ -107,6 +123,7 @@ const TaskModal = ({
                 userIds: [],
                 assignedBy: "",
                 dueDate: "",
+                fileUrl: "",
                 title: "",
                 priority: "low",
                 status: "assigned",
@@ -128,6 +145,29 @@ const TaskModal = ({
 
     const formatStatus = (status: string) => {
         return status.includes('_') ? status.replace('_', ' ') : status;
+    };
+
+    const handleFileUpload = async (file: any) => {
+        setLoading(true)
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/file/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            setTaskData(prevState => ({
+                ...prevState,
+                fileUrl: response.data.url
+            }));
+        } catch (error) {
+            console.error('Error uploading file:', error);
+
+        } finally {
+            setLoading(false)
+        }
     };
 
     const statusColors = {
@@ -155,8 +195,8 @@ const TaskModal = ({
                     {mode} Task
                 </Button>
             )}
-            <Modal isOpen={isOpen} onClose={onClose} placement="top-center" >
-                <ModalContent>
+            <Modal isOpen={isOpen} onClose={onClose} placement="top-center"  >
+                <ModalContent className="max-h-[90vh] overflow-y-auto">
                     <ModalHeader>{title}</ModalHeader>
                     <ModalBody>
                         {/* Only show status field in Edit mode */}
@@ -213,7 +253,15 @@ const TaskModal = ({
 
                                         {data.task}
                                     </p>
+                                    {
+                                        data.fileUrl &&
+                                        <div className="flex items-center justify-end w-full">
+                                            <div onClick={() => downloadFile(data.fileUrl)} className="flex items-center hover:text-blue-500 hover:underline gap-x-1" style={{ cursor: 'pointer' }}>
+                                                <Download /> Attachment
+                                            </div>
+                                        </div>
 
+                                    }
                                     <div className="flex items-center justify-between mt-6 text-sm font-light">
                                         <p>
                                             Assigned By {data.assignedBy?.full_name}
@@ -243,6 +291,14 @@ const TaskModal = ({
                                             type="date"
                                             value={taskData.dueDate}
                                             onChange={handleChange}
+                                            variant="bordered"
+                                            disabled={isViewMode}
+                                        />
+                                        <Input
+                                            name="file"
+                                            label=""
+                                            type="file"
+                                            onChange={(e: any) => handleFileUpload(e.target.files[0])}
                                             variant="bordered"
                                             disabled={isViewMode}
                                         />
@@ -309,7 +365,7 @@ const TaskModal = ({
                             Close
                         </Button>
                         {!isViewMode && (
-                            <Button color="primary" onPress={handleConfirm}>
+                            <Button color="primary" onPress={handleConfirm} disabled={loading}>
                                 {buttonText}
                             </Button>
                         )}

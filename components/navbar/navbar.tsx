@@ -1,5 +1,7 @@
+"use client"
+
 import { Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FeedbackIcon } from "../icons/navbar/feedback-icon";
 import { GithubIcon } from "../icons/navbar/github-icon";
 import { SupportIcon } from "../icons/navbar/support-icon";
@@ -10,6 +12,8 @@ import { UserDropdown } from "./user-dropdown";
 import { useCheckAdmin } from "../hooks/useCheckingAdmin";
 import { MessageDropDown } from "./message-squre-more";
 import { DarkModeSwitch } from "./darkmodeswitch";
+import { checkInUser, checkOutUser } from "@/actions/user.action";
+import { toast } from "sonner";
 
 
 interface Props {
@@ -33,7 +37,42 @@ const navLinks = [
     href: ""
   },
 ]
+
 export const NavbarWrapper = ({ children }: Props) => {
+  const [isCheckIn, setIsCheckIn] = useState(false);
+  useEffect(() => {
+    // Check if the user is already checked in on component mount
+    const checkInStatus = localStorage.getItem("isCheckIn") === "true";
+    setIsCheckIn(checkInStatus);
+  }, []);
+  const CheckIn = async () => {
+
+    const { data, error } = await checkInUser()
+    console.log("🚀 ~ CheckIn ~ error:", error)
+    console.log("🚀 ~ CheckIn ~ data:", data)
+    if (error) {
+      toast.success(error ? error : "Some Error in Check")
+      return
+    }
+    if (data) {
+      toast.success("Check In successFull")
+      localStorage.setItem("isCheckIn", "true");
+      setIsCheckIn(true);
+    }
+  }
+  const CheckOut = async () => {
+    const { data, error } = await checkOutUser()
+    console.log("🚀 ~ CheckIn ~ error:", error)
+    console.log("🚀 ~ CheckIn ~ data:", data)
+    if (error) {
+      toast.success(error ? error : "Some Error in Check Out")
+      return
+    }
+    if (data) {
+      localStorage.setItem("isCheckIn", "false");
+      toast.success("Check Out successFull")
+    }
+  }
   return (
     <div className="relative flex flex-col w-full  flex-1 overflow-y-auto overflow-x-hidden">
       <Navbar
@@ -62,6 +101,16 @@ export const NavbarWrapper = ({ children }: Props) => {
           {/* <MessageDropDown />
           <NotificationsDropdown /> */}
           <DarkModeSwitch />
+          <button
+            onClick={CheckIn}
+            disabled={isCheckIn}
+            className={`text-sm bg-[#05549F] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300 ${isCheckIn ? "opacity-50 cursor-not-allowed" : ""}`}
+          >
+            Check In
+          </button>
+          <button onClick={CheckOut} className="text-sm bg-[#9f0505] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300">
+            Check Out
+          </button>
           <NavbarContent>
             <UserDropdown />
           </NavbarContent>
