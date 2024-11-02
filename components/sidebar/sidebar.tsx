@@ -89,7 +89,7 @@ export const SidebarWrapper = () => {
                 </SidebarMenu>
               </ul> */}
 
-                  <div className="w-full rounded-md p-1 group  cursor-pointer hover:bg-[#05549F] my-5 flex items-center">
+                  {/* <div className="w-full rounded-md p-1 group  cursor-pointer hover:bg-[#05549F] my-5 flex items-center">
                     <Image
                       src={"/user.jpeg"}
                       alt="user"
@@ -100,7 +100,7 @@ export const SidebarWrapper = () => {
                     <span className="text-base  font-semibold ml-2 text-[#05549F] group-hover:text-white regular-font">
                       Abdulla Lootah
                     </span>
-                  </div>
+                  </div> */}
 
                 </div>
               </div>

@@ -9,13 +9,18 @@ declare module "next-auth" {
     id?: string; // Add additional fields here
     phone_number?: string;
     type?: string;
+    full_name?: string,
+    profileImage?: string,
+
   }
 
   interface Session {
     user: {
       id?: string;
+      full_name?: string,
       phone_number?: string;
       type?: string;
+      profileImage?: string;
     } & DefaultUser;
   }
 
@@ -65,6 +70,7 @@ const authOptions: AuthOptions = {
               id: user.body.user._id,
               email: user.body.user.email,
               name: user.body.user.full_name,
+              profileImage: user.body.user.profileImage,
               type: user.body.user.type,
             };
           } else {
@@ -83,34 +89,43 @@ const authOptions: AuthOptions = {
     error: "/login",
   },
   session: {
-    // Seconds - How long until an idle session expires and is no longer valid.
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
   callbacks: {
-    async jwt({ token, user }) {
-      // First time JWT callback is run, user object is available
+    async jwt({ token, user, session, trigger }) {
+      console.log("🚀 ~ jwt ~ user:", user)
+      console.log("🚀 ~ jwt ~ session:", session)
+      console.log("🚀 ~ jwt ~ trigger:", trigger)
+      if (trigger === "update" && session?.user) {
+        token.name = session.user.name;
+        token.profile = session.user.image;
+      }
       if (user) {
+        console.log("🚀 ~ jwt ~ user:", user);
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
         token.type = user.type;
+        token.profile = user.profileImage;
       }
       return token;
     },
     async session({ session, token }) {
-      // Session callback is called whenever a session for that particular user is checked
+      console.log("🚀 ~ session ~ token:", token)
       if (token) {
         session.user = {
           id: token.id as string,
           email: token.email as string,
           name: token.name as string,
           type: token.type as string,
+          image: token.profile as string,
         };
       }
       return session;
     },
   },
+
   jwt: {
     maxAge: 60 * 60 * 24 * 30,
   },

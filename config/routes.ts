@@ -52,8 +52,7 @@ export const routes = [
   {
     title: "Settings",
     icon: Settings,
-    href: "/dashboard/5",
-    admin: true,
+    href: "/dashboard/setting",
   },
 
 

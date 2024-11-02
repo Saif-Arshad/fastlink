@@ -19,7 +19,7 @@ export const UserDropdown = () => {
 
   const getAvatarInitial = () => {
     if (session.data?.user) {
-      const { name, email } = session.data.user;
+      const { name, email, image } = session.data.user;
       return name
         ? name.charAt(0).toUpperCase()
         : email?.charAt(0).toUpperCase();
@@ -48,7 +48,7 @@ export const UserDropdown = () => {
             as="button"
             color="primary"
             size="md"
-            src="/user.jpeg"
+            src={`${session.data?.user ? session.data.user.image : "/user.jpeg"}`}
             className="rounded-full object-cover ml-7"
           />
         </DropdownTrigger>
@@ -61,11 +61,14 @@ export const UserDropdown = () => {
           key="profile"
           className="flex flex-col justify-start light-font w-full items-start"
         >
-          <p>Signed in as</p>
+          <p>
+            {session.data?.user ? session.data.user.name : ""}
+          </p>
           <p>
             {session.data?.user ? session.data.user.email : "User@example.com"}
           </p>
         </DropdownItem>
+
         {/* <DropdownItem key="settings">My Settings</DropdownItem> */}
         <DropdownItem
           key="logout"
