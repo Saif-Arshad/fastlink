@@ -26,8 +26,8 @@ const Home = async (
 
     <div className="flex flex-col md:flex-row items-start my-4 sm:space-x-4">
 
-      <ProjectCard upcomingTasksData={upcomingTasksData} />
-      <MixedChart />
+      {/* <ProjectCard upcomingTasksData={upcomingTasksData} /> */}
+      {/* <MixedChart /> */}
     </div>
   </div>
 };

@@ -52,19 +52,17 @@ export const SidebarWrapper = () => {
               </div>
               <div className="flex flex-col justify-between h-full">
                 <div className={Sidebar.Body()} >
-                  <SidebarMenu title={"Menu"} >
-                    {routes
-                      .filter((route) => route.admin === undefined || route.admin === isAdmin)
-                      .map((route) => (
-                        <SidebarItem
-                          key={route.href}
-                          title={route.title}
-                          icon={<route.icon />}
-                          isActive={pathname === route.href}
-                          href={route.href}
-                        />
-                      ))}
-                  </SidebarMenu>
+                  {routes
+                    .filter((route) => route.admin === undefined || route.admin === isAdmin)
+                    .map((route) => (
+                      <SidebarItem
+                        key={route.href}
+                        title={route.title}
+                        icon={<route.icon />}
+                        isActive={pathname === route.href}
+                        href={route.href}
+                      />
+                    ))}
 
                 </div>
                 <div className="flex flex-col w-full">

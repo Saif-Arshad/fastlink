@@ -83,13 +83,16 @@ export const RenderCell = ({ item, columnKey, isAdmin }: Props) => {
     case "actions":
       return (
         <div className="flex items-center gap-4">
-          <div>
-            <Tooltip content="Schedule">
-              <Link href={`/dashboard/accounts/${item._id}`}>
-                <History size={20} className="text-[#979797]" />
-              </Link>
-            </Tooltip>
-          </div>
+          {
+            isAdmin &&
+            <div>
+              <Tooltip content="Schedule">
+                <Link href={`/dashboard/accounts/${item._id}`}>
+                  <History size={20} className="text-[#979797]" />
+                </Link>
+              </Tooltip>
+            </div>
+          }
           <div>
             <Tooltip content="Details">
               <UserModal
