@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { TableWrapper } from "@/components/table/table";
@@ -13,14 +13,15 @@ export const History = ({
     meta: IMeta;
 }) => {
     const [selectedMonth, setSelectedMonth] = useState("");
+    const [selectedWeek, setSelectedWeek] = useState(1);
+
     const columns = [
         { name: "Day", uid: "day" },
         { name: "Date", uid: "date" },
-        { name: "Check In", uid: "loginTime" },
-        { name: "Check Out", uid: "logoutTime" },
-        { name: "Total Time", uid: "totalTime" },
+        // { name: "Time", uid: "time" },
         { name: "Signature", uid: "signature" },
     ];
+
     useEffect(() => {
         const currentMonth = new Date().toISOString().slice(0, 7);
         setSelectedMonth(currentMonth);
@@ -30,60 +31,83 @@ export const History = ({
         setSelectedMonth(e.target.value);
     };
 
-    const formattedData = data.timestamps
-        .filter((timestamp: any) => {
-            const loginMonth = timestamp.sign_in ? new Date(timestamp.sign_in).toISOString().slice(0, 7) : null;
-            return loginMonth === selectedMonth;
-        })
-        .map((timestamp: any) => {
-            const loginDate = timestamp.sign_in ? new Date(timestamp.sign_in) : null;
-            const logoutDate = timestamp.sign_out ? new Date(timestamp.sign_out) : null;
+    const handleWeekChange = (e: any) => {
+        setSelectedWeek(parseInt(e.target.value));
+    };
 
-            let totalTime = 'N/A';
-            if (loginDate && logoutDate) {
-                const duration = logoutDate.getTime() - loginDate.getTime();
-                const hours = Math.floor(duration / 3600000);
-                const minutes = Math.floor((duration % 3600000) / 60000);
-                totalTime = `${hours}h ${minutes}m`;
-            }
+    const getWeekOfMonth = (date: any) => {
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        const offset = date.getDay() - firstDay.getDay();
+        return Math.ceil((date.getDate() + offset) / 7);
+    };
 
-            return {
-                _id: timestamp._id,
-                day: loginDate && !isNaN(loginDate.getTime())
-                    ? loginDate.toLocaleDateString("en-US", { weekday: "long" })
-                    : "N/A",
-                date: loginDate && !isNaN(loginDate.getTime())
-                    ? loginDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' })
-                    : "N/A",
-                loginTime: loginDate && !isNaN(loginDate.getTime())
-                    ? loginDate.toLocaleTimeString()
-                    : "N/A",
-                logoutTime: logoutDate && !isNaN(logoutDate.getTime())
-                    ? logoutDate.toLocaleTimeString()
-                    : "N/A",
-                totalTime,
-                signature: data.name ? data.name : "Anonymous"
-            };
-        });
+    const filterData = (type: any) => {
+        return data.timestamps
+            .filter((timestamp: any) => {
+                const eventDate = timestamp[type] ? new Date(timestamp[type]) : null;
+                const eventMonth = eventDate ? eventDate.toISOString().slice(0, 7) : null;
+                const eventWeek = eventDate ? getWeekOfMonth(eventDate) : null;
+
+                return eventMonth === selectedMonth && eventWeek === selectedWeek;
+            })
+            .map((timestamp: any) => {
+                const eventDate = timestamp[type] ? new Date(timestamp[type]) : null;
+
+                return {
+                    _id: timestamp._id,
+                    day: eventDate ? eventDate.toLocaleDateString("en-US", { weekday: "long" }) : "N/A",
+                    date: eventDate ? eventDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }) : "N/A",
+                    // time: eventDate ? eventDate.toLocaleTimeString() : "N/A",
+                    signature: data.name ? data.name : "Anonymous"
+                };
+            });
+    };
+
+    const checkInData = filterData("sign_in");
+    const checkOutData = filterData("sign_out");
 
     return (
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
             <div className="flex justify-between flex-wrap gap-4 items-center">
-                <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-                    <h3 className="text-xl regular-fontss font-semibold">Schedule History</h3>
+
+                <h1>
+
+                </h1>
+                <div className="flex items-center gap-x-4">
+                    <input
+                        type="month"
+                        value={selectedMonth}
+                        onChange={handleMonthChange}
+                        className="p-2 border rounded-lg"
+                    />
+                    <select
+                        value={selectedWeek}
+                        onChange={handleWeekChange}
+                        className="p-2 border rounded-lg"
+                    >
+                        {[1, 2, 3, 4, 5].map((week) => (
+                            <option key={week} value={week}>
+                                Week {week}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                <input
-                    type="month"
-                    value={selectedMonth}
-                    onChange={handleMonthChange}
-                    className="p-2 border rounded-lg"
-                />
             </div>
             <div className="max-w-[95rem] mx-auto w-full">
+                <h4 className="text-lg font-semibold mb-4">Check-In History</h4>
                 <TableWrapper
                     meta={meta}
                     RenderCell={RenderCell}
-                    data={formattedData}
+                    data={checkInData}
+                    columns={columns}
+                />
+            </div>
+            <div className="max-w-[95rem] mx-auto w-full mt-8">
+                <h4 className="text-lg font-semibold mb-4">Check-Out History</h4>
+                <TableWrapper
+                    meta={meta}
+                    RenderCell={RenderCell}
+                    data={checkOutData}
                     columns={columns}
                 />
             </div>

@@ -89,7 +89,7 @@ function MainSetting() {
 
 
     return (
-        <div className="flex flex-col items-center p-6 w-[36rem] dark:bg-neutral-900 rounded-2xl bg-slate-50 mx-auto mt-20">
+        <div className="flex flex-col items-center p-6 w-11/12 md:w-[36rem] dark:bg-neutral-900 rounded-2xl bg-slate-50 mx-auto mt-20">
             <div className='flex items-start justify-start w-full'>
                 <div className="relative w-20 h-20">
                     <label htmlFor="modalProfileImageInput" className="h-20 w-20 rounded-full cursor-pointer relative">
@@ -109,7 +109,7 @@ function MainSetting() {
                     </label>
                 </div>
             </div>
-            <div className='flex items-end gap-x-4 w-full'>
+            <div className='flex flex-col lg:flex-row items-end gap-x-4 w-full'>
                 <div className="mt-6 w-full">
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Name</label>
                     <input
@@ -132,7 +132,8 @@ function MainSetting() {
                     />
                 </div>
             </div>
-            <div className='flex items-end gap-x-4 w-full'>
+            <div className='flex flex-col lg:flex-row items-end gap-x-4 w-full'>
+
                 <div className="mt-4 w-full">
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">New Password</label>
                     <input

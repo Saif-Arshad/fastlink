@@ -106,11 +106,11 @@ export const NavbarWrapper = ({ children }: Props) => {
           <button
             onClick={CheckIn}
             disabled={isCheckIn}
-            className={`text-sm bg-[#05549F] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300 ${isCheckIn ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`text-xs sm:text-sm bg-[#05549F] text-white p-1 sm:p-2 rounded-full w-20 sm:w-24 hover:scale-105 transition-all duration-300 ${isCheckIn ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             Check In
           </button>
-          <button onClick={CheckOut} className="text-sm bg-[#9f0505] text-white p-2 rounded-full w-24 hover:scale-105 transition-all duration-300">
+          <button onClick={CheckOut} className=" text-xs sm:text-sm bg-[#9f0505] text-white p-1 sm:p-2 rounded-full w-20 sm:w-24 hover:scale-105 transition-all duration-300">
             Check Out
           </button>
           <NavbarContent>
