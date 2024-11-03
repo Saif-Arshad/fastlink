@@ -40,10 +40,10 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
   }, [searchParams]);
 
   return (
-    <section className="bg-white h-screen max-h-screen lg:overflow-y-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+    <section className="bg-white h-screen max-h-screen lg:overflow-y-hidden dark:bg-black flex items-center justify-center">
+      <div className="grid grid-cols-1  lg:w-1/2 w-full">
         {/* Image Section */}
-        <div className="relative lg:h-screen flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
+        {/* <div className="relative lg:h-screen flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
           <div className="absolute inset-0">
             <img className="object-cover w-full h-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/4/girl-working-on-laptop.jpg" alt="" />
           </div>
@@ -70,7 +70,7 @@ function Auth({ searchParams }: { searchParams: { error?: string } }) {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-center px-4 py-10 bg-white dark:bg-black sm:px-6 lg:px-8 sm:py-16 lg:py-24">
           <div className="w-full xl:w-10/12 2xl:max-w-md xl:mx-auto">

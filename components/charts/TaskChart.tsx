@@ -19,9 +19,9 @@ import axios from 'axios';
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 interface TaskStatistic {
-    label: string;
-    tasksCreated: number;
-    tasksCompleted: number;
+    label?: string;
+    tasksCreated?: number;
+    tasksCompleted?: number;
 }
 
 const shadowPlugin: Plugin<"line"> = {
@@ -54,12 +54,12 @@ const TaskChart: React.FC = () => {
     const [view, setView] = useState<"day" | "week" | "month">("week");
     const [taskStatistics, setTaskStatistics] = useState<TaskStatistic[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchTaskStatistics = async () => {
             setLoading(true);
-            setError(null);
+            // setError(null);
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/stats/task-statistics`, {
                     params: { view }
@@ -67,7 +67,15 @@ const TaskChart: React.FC = () => {
                 setTaskStatistics(response.data.taskStatistics);
             } catch (err) {
                 console.error('Error fetching task statistics:', err);
-                setError('Failed to load data.');
+                // setError('Failed to load data.');
+                setTaskStatistics(
+                    [
+                        {
+                            label: "day",
+                            tasksCreated: 0,
+                            tasksCompleted: 0,
+                        }
+                    ])
             } finally {
                 setLoading(false);
             }
@@ -166,10 +174,6 @@ const TaskChart: React.FC = () => {
             {loading ? (
                 <div className="flex justify-center items-center h-64">
                     <p className="text-gray-500">Loading...</p>
-                </div>
-            ) : error ? (
-                <div className="flex justify-center items-center h-64">
-                    <p className="text-red-500">{error}</p>
                 </div>
             ) : (
                 <div className="h-64">

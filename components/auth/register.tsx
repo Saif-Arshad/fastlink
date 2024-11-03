@@ -63,9 +63,10 @@ function Register({ data, id }: any) {
         )
     }
     return (
-        <section className="bg-white dark:bg-black">
+        <section className="bg-white dark:bg-black flex items-center justify-center">
             {/* <section className="bg-white h-screen max-h-screen lg:overflow-y-hidden"> */}
-            <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="grid grid-cols-1  lg:w-1/2 w-full">
+
 
 
                 <div className="flex items-center justify-center px-5 py-4 xl:py-9 xl:pt-12 bg-white dark:bg-black sm:px-6 lg:px-8 ">
@@ -169,7 +170,7 @@ function Register({ data, id }: any) {
                         </Formik>
                     </div>
                 </div>
-                <div className="relative lg:min-h-screen flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
+                {/* <div className="relative lg:min-h-screen flex items-end px-4 pb-10 pt-60 sm:pb-16 md:justify-center lg:pb-24 bg-gray-50 sm:px-6 lg:px-8">
                     <div className="absolute inset-0">
                         <img className="object-cover w-full h-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/4/girl-working-on-laptop.jpg" alt="" />
                     </div>
@@ -197,7 +198,7 @@ function Register({ data, id }: any) {
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </section>
     );
