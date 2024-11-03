@@ -12,8 +12,9 @@ export const History = ({
     data: any;
     meta: IMeta;
 }) => {
+    console.log("🚀 ~ data:", data)
     const [selectedMonth, setSelectedMonth] = useState("");
-    const [selectedWeek, setSelectedWeek] = useState(1);
+    const [selectedWeek, setSelectedWeek] = useState<any>();
 
     const columns = [
         { name: "Day", uid: "day" },
@@ -40,15 +41,20 @@ export const History = ({
         const offset = date.getDay() - firstDay.getDay();
         return Math.ceil((date.getDate() + offset) / 7);
     };
-
     const filterData = (type: any) => {
         return data.timestamps
             .filter((timestamp: any) => {
                 const eventDate = timestamp[type] ? new Date(timestamp[type]) : null;
-                const eventMonth = eventDate ? eventDate.toISOString().slice(0, 7) : null;
-                const eventWeek = eventDate ? getWeekOfMonth(eventDate) : null;
+                if (!eventDate) return false; // Skip if there's no date for the specified type
 
-                return eventMonth === selectedMonth && eventWeek === selectedWeek;
+                const eventMonth = eventDate.toISOString().slice(0, 7);
+                const eventWeek = getWeekOfMonth(eventDate);
+
+                // Apply filters only if selectedMonth or selectedWeek is chosen
+                const monthMatches = selectedMonth ? eventMonth === selectedMonth : true;
+                const weekMatches = selectedWeek ? eventWeek === selectedWeek : true;
+
+                return monthMatches && weekMatches;
             })
             .map((timestamp: any) => {
                 const eventDate = timestamp[type] ? new Date(timestamp[type]) : null;
@@ -57,14 +63,36 @@ export const History = ({
                     _id: timestamp._id,
                     day: eventDate ? eventDate.toLocaleDateString("en-US", { weekday: "long" }) : "N/A",
                     date: eventDate ? eventDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }) : "N/A",
-                    // time: eventDate ? eventDate.toLocaleTimeString() : "N/A",
-                    signature: data.name ? data.name : "Anonymous"
+                    signature: data.name || "Anonymous"
                 };
             });
     };
 
-    const checkInData = filterData("sign_in");
-    const checkOutData = filterData("sign_out");
+    // For check-in data
+    const checkInData = selectedMonth || selectedWeek ? filterData("sign_in") : data.timestamps
+        .filter((timestamp: any) => timestamp.sign_in)
+        .map((timestamp: any) => ({
+            _id: timestamp._id,
+            day: new Date(timestamp.sign_in).toLocaleDateString("en-US", { weekday: "long" }),
+            date: new Date(timestamp.sign_in).toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }),
+            signature: data.name || "Anonymous"
+        }));
+
+    // For check-out data
+    const checkOutData = selectedMonth || selectedWeek ? filterData("sign_out") : data.timestamps
+        .filter((timestamp: any) => timestamp.sign_out)
+        .map((timestamp: any) => ({
+            _id: timestamp._id,
+            day: new Date(timestamp.sign_out).toLocaleDateString("en-US", { weekday: "long" }),
+            date: new Date(timestamp.sign_out).toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }),
+            signature: data.name || "Anonymous"
+        }));
+
+
+    // const checkInData = filterData("sign_in");
+    console.log("🚀 ~ checkInData:", checkInData)
+    // const checkOutData = filterData("sign_out");
+    console.log("🚀 ~ checkOutData:", checkOutData)
 
     return (
         <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
@@ -85,12 +113,14 @@ export const History = ({
                         onChange={handleWeekChange}
                         className="p-2 border rounded-lg"
                     >
+                        <option value="">All</option>
                         {[1, 2, 3, 4, 5].map((week) => (
                             <option key={week} value={week}>
                                 Week {week}
                             </option>
                         ))}
                     </select>
+
                 </div>
             </div>
             <div className="max-w-[95rem] mx-auto w-full">

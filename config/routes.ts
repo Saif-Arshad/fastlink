@@ -46,7 +46,7 @@ export const routes = [
     title: "Schedule History",
     icon: History,
     href: "/dashboard/my-history",
-    admin: false,
+    // admin: false,
   },
 
   {
