@@ -19,6 +19,7 @@ import axios from 'axios';
 import { useRouter } from "next/navigation";
 import { Download, Plus, Send } from "lucide-react";
 import { saveAs } from 'file-saver';
+import { toast } from "sonner";
 
 
 
@@ -148,25 +149,32 @@ const TaskModal = ({
     };
 
     const handleFileUpload = async (file: any) => {
-        setLoading(true)
-        const formData = new FormData();
-        formData.append('file', file);
+        const allowedExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        if (allowedExtensions.includes(fileExtension)) {
+            setLoading(true)
+            const formData = new FormData();
+            formData.append('file', file);
 
-        try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/file/upload`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            setTaskData(prevState => ({
-                ...prevState,
-                fileUrl: response.data.url
-            }));
-        } catch (error) {
-            console.error('Error uploading file:', error);
+            try {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/file/upload`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                setTaskData(prevState => ({
+                    ...prevState,
+                    fileUrl: response.data.url
+                }));
+            } catch (error) {
+                console.error('Error uploading file:', error);
 
-        } finally {
-            setLoading(false)
+            } finally {
+                setLoading(false)
+            }
+        }
+        else {
+            toast.success("Invalid File only PDF, DOC and Excel is acceptable")
         }
     };
 
