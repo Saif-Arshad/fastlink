@@ -9,6 +9,8 @@ import { DeleteIcon } from '../icons/table/delete-icon';
 import { useRouter } from "next/navigation";
 import { EyeIcon } from '../icons/table/eye-icon';
 import { useCheckAdmin } from '../hooks/useCheckingAdmin';
+import { Download } from 'lucide-react';
+import saveAs from 'file-saver';
 type TaskPriority = "medium" | "high" | "low" | "critical";
 type TaskStatus = "assigned" | "in_progress" | "completed" | "on_hold" | "cancelled" | "review" | "approved";
 interface Task {
@@ -17,6 +19,7 @@ interface Task {
     status: TaskStatus;
     title: string;
     task: string;
+    fileUrl?: any;
     userIds: { _id: string; full_name: string }[];
 }
 interface Props {
@@ -115,7 +118,16 @@ function Task({ UsersData, data }: Props) {
             }
         );
     };
-
+    const downloadFile = async (url: any) => {
+        console.log("🚀 ~ downloadFile ~ url:", url)
+        try {
+            const response = await fetch(url[0].url);
+            const blob = await response.blob();
+            saveAs(blob, url[0].name);
+        } catch (error) {
+            console.error('Failed to download the file:', error);
+        }
+    };
     const formatStatus = (status: string) => {
         return status.includes('_') ? status.replace('_', ' ') : status;
     };
@@ -137,7 +149,7 @@ function Task({ UsersData, data }: Props) {
                     </div>
                 }
             </div>
-            <div className=" gap-4 my-8 flex items-center flex-wrap">
+            <div className=" gap-4 my-8 flex items-start flex-wrap">
                 {allTasks && allTasks.slice().reverse().map((task: Task) => (
                     <div key={task._id} className={`p-4 bg-white cursor-pointer min-w-[18rem] max-w-[18rem] dark:bg-[#18181b] rounded-xl border-1 ${borderColorClasses[task.priority]} flex flex-col gap-4`}>
                         <div className="flex justify-between items-center border-b pb-2">
@@ -187,6 +199,15 @@ function Task({ UsersData, data }: Props) {
                         <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
                             {task.task}
                         </p>
+                        {
+                            task.fileUrl.length > 0 &&
+                            <div className="flex items-center justify-end w-full">
+                                <div onClick={() => downloadFile(task.fileUrl)} className="capitalize  flex items-center hover:text-blue-500 hover:underline gap-x-1" style={{ cursor: 'pointer' }}>
+                                    <Download /> {task.fileUrl[0].name}
+                                </div>
+                            </div>
+
+                        }
 
 
 

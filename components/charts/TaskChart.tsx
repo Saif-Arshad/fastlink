@@ -51,7 +51,7 @@ const shadowPlugin: Plugin<"line"> = {
 
 const TaskChart: React.FC = () => {
     const { theme } = useTheme(); // Get theme information
-    const [view, setView] = useState<"day" | "week" | "month">("week");
+    const [view, setView] = useState<"day" | "week" | "month">("month");
     const [taskStatistics, setTaskStatistics] = useState<TaskStatistic[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     // const [error, setError] = useState<string | null>(null);

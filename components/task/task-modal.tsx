@@ -29,7 +29,7 @@ interface TaskData {
     assignedBy: string;
     dueDate: string;
     priority: string;
-    fileUrl: string;
+    fileUrl: any;
     title: string;
     status: string;
 }
@@ -61,7 +61,7 @@ const TaskModal = ({
         assignedBy: "",
         dueDate: "",
         title: "",
-        fileUrl: "",
+        fileUrl: {},
         priority: "low",
         status: "assigned",
         ...data,
@@ -100,9 +100,9 @@ const TaskModal = ({
     };
     const downloadFile = async (url: any) => {
         try {
-            const response = await fetch(url);
+            const response = await fetch(url[0].url);
             const blob = await response.blob();
-            saveAs(blob, "Task.pdf");
+            saveAs(blob, url[0].name);
         } catch (error) {
             console.error('Failed to download the file:', error);
         }
@@ -124,7 +124,7 @@ const TaskModal = ({
                 userIds: [],
                 assignedBy: "",
                 dueDate: "",
-                fileUrl: "",
+                fileUrl: {},
                 title: "",
                 priority: "low",
                 status: "assigned",
@@ -149,7 +149,7 @@ const TaskModal = ({
     };
 
     const handleFileUpload = async (file: any) => {
-        const allowedExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
+        const allowedExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', "csv"];
         const fileExtension = file.name.split('.').pop().toLowerCase();
         if (allowedExtensions.includes(fileExtension)) {
             setLoading(true)
@@ -262,10 +262,11 @@ const TaskModal = ({
                                         {data.task}
                                     </p>
                                     {
-                                        data.fileUrl &&
+                                        data.fileUrl.length > 0 &&
                                         <div className="flex items-center justify-end w-full">
-                                            <div onClick={() => downloadFile(data.fileUrl)} className="flex items-center hover:text-blue-500 hover:underline gap-x-1" style={{ cursor: 'pointer' }}>
-                                                <Download /> Attachment
+                                            <div onClick={() => downloadFile(data.fileUrl)} className="capitalize flex items-center hover:text-blue-500 hover:underline gap-x-1" style={{ cursor: 'pointer' }}>
+                                                <Download /> {data.fileUrl[0].name}
+
                                             </div>
                                         </div>
 
